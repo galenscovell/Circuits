@@ -1,0 +1,22 @@
+
+# Ignored file extensions
+
+*.apk
+*.bat
+*.class
+*.idea
+*.iml
+*.gradle
+*.pro
+*.properties
+*.txt
+
+
+# Ignored directory names
+
+android/libs
+build
+generating
+gradle
+gradlew
+working
