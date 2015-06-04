@@ -20,6 +20,10 @@ public class GameScreen implements Screen {
 
     public GameScreen(Game root) {
         this.root = root;
+        createLevel();
+    }
+
+    private void createLevel() {
         Grid grid = new Grid();
         this.renderer = new Renderer(grid.getGrid());
     }
