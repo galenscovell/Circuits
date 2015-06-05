@@ -27,7 +27,21 @@ public class InputHandler extends GestureDetector.GestureAdapter {
 
     @Override
     public boolean fling(float velocityX, float velocityY, int button) {
-        System.out.println(Math.abs(velocityX) > Math.abs(velocityY));
+        int[] dir = new int[2];
+        if (Math.abs(velocityX) > Math.abs(velocityY)) {
+            if (velocityX < 0) {
+                dir[0] = -1;
+            } else {
+                dir[0] = 1;
+            }
+        } else {
+            if (velocityY < 0) {
+                dir[1] = 1;
+            } else {
+                dir[1] = -1;
+            }
+        }
+        game.fling(dir);
         return true;
     }
 

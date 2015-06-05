@@ -13,5 +13,8 @@ public class Constants {
 
     public static final int CELLSIZE = 32;
     public static final int GAME_X = SCREEN_X - (CELLSIZE * 2);
-    public static final int GAME_Y = SCREEN_Y - (CELLSIZE * 6);
+    public static final int GAME_Y = SCREEN_Y - (CELLSIZE * 4);
+
+    public static final int COLUMNS = (GAME_X - (CELLSIZE * 2)) / CELLSIZE;
+    public static final int ROWS = (GAME_Y - CELLSIZE) / CELLSIZE;
 }

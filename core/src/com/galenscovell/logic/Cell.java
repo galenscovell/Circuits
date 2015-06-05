@@ -50,7 +50,7 @@ public class Cell {
 
     public void setOccupied() {
         this.occupied = true;
-        this.sprite = new Sprite(ResourceManager.atlas.findRegion("node"));
+        this.sprite = new Sprite(ResourceManager.atlas.findRegion("screwhead"));
     }
 
     public boolean isOccupied() {
@@ -59,10 +59,10 @@ public class Cell {
 
     public void draw(SpriteBatch batch, int cellSize) {
         if (selected) {
-            batch.setColor(0.2f, 0.8f, 0.4f, 1.0f);
+            batch.setColor(0.1f, 0.6f, 0.3f, 1.0f);
         }
         // x + 1 = forced horizontal margin (begins one cell over), y + 3 similar
-        batch.draw(sprite, (x + 1) * cellSize, (y + 3) * cellSize, cellSize, cellSize);
+        batch.draw(sprite, (x + 2) * cellSize, (y + 2) * cellSize, cellSize, cellSize);
         batch.setColor(1, 1, 1, 1);
     }
 }

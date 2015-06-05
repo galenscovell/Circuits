@@ -15,9 +15,9 @@ import com.galenscovell.util.Constants;
 import com.galenscovell.util.ResourceManager;
 
 
-public class HudBar extends Stage {
+public class GameLayout extends Stage {
 
-    public HudBar() {
+    public GameLayout() {
         create();
     }
 
@@ -28,6 +28,11 @@ public class HudBar extends Stage {
         Table topTable = new Table();
         topTable.setBackground(ResourceManager.hudbarBG);
         mainTable.add(topTable).width(Constants.SCREEN_X).height(Constants.CELLSIZE).expand().fill().top();
+        mainTable.row();
+
+        Table gameBoard = new Table();
+        gameBoard.setBackground(ResourceManager.boardBG);
+        mainTable.add(gameBoard).width(Constants.GAME_X).height(Constants.GAME_Y).expand().fill().center().padBottom(Constants.CELLSIZE);
 
         this.addActor(mainTable);
     }

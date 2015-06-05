@@ -15,6 +15,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import com.galenscovell.logic.Cell;
 import com.galenscovell.logic.Grid;
 import com.galenscovell.logic.Renderer;
 import com.galenscovell.util.Constants;
@@ -26,8 +27,9 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
     private Grid grid;
-    private HudBar hud;
+    private GameLayout hud;
     private Renderer renderer;
+    private Cell selectedCell;
 
 
     public GameScreen(Game root) {
@@ -35,12 +37,18 @@ public class GameScreen implements Screen {
         this.camera = new OrthographicCamera(Constants.SCREEN_X, Constants.SCREEN_Y);
         this.viewport = new FitViewport((float) Constants.SCREEN_X, (float) Constants.SCREEN_Y, camera);
         camera.setToOrtho(true, Constants.SCREEN_X, Constants.SCREEN_Y);
-        this.hud = new HudBar();
+        this.hud = new GameLayout();
         createLevel();
     }
 
     public void selection(float x, float y) {
-        grid.selectCell(x, y);
+        this.selectedCell = grid.selectCell(x, y);
+    }
+
+    public void fling(int[] dir) {
+        if (selectedCell != null) {
+            grid.checkForCell(dir, selectedCell);
+        }
     }
 
     private void createLevel() {
@@ -50,11 +58,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0.24f, 0.34f, 0.43f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        renderer.render();
         hud.act(delta);
         hud.draw();
+        renderer.render();
     }
 
     @Override
@@ -85,6 +93,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        hud.dispose();
     }
 }

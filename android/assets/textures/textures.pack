@@ -3,9 +3,23 @@ textures.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-node
+wood
   rotate: false
   xy: 1, 54
+  size: 210, 200
+  orig: 210, 200
+  offset: 0, 0
+  index: -1
+screwhead
+  rotate: false
+  xy: 213, 134
+  size: 128, 120
+  orig: 128, 120
+  offset: 0, 0
+  index: -1
+node
+  rotate: false
+  xy: 213, 68
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -19,7 +33,7 @@ empty
   index: -1
 hudbar
   rotate: false
-  xy: 67, 106
+  xy: 343, 242
   size: 12, 12
   split: 0, 0, 3, 2
   orig: 12, 12

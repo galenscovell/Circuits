@@ -7,7 +7,6 @@
 package com.galenscovell.twine;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.GL20;
 
 import com.galenscovell.screens.GameScreen;
 import com.galenscovell.util.ResourceManager;
@@ -26,6 +25,7 @@ public class TwineMain extends Game {
 
     @Override
     public void dispose () {
-
+        gameScreen.dispose();
+        ResourceManager.dispose();
     }
 }

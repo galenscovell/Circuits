@@ -18,11 +18,11 @@ public class Grid {
 
     public Grid() {
         this.cellSize = Constants.CELLSIZE;
-        this.rows = Constants.GAME_Y / cellSize;
-        this.columns = Constants.GAME_X / cellSize;
-        this.cells = new Cell[columns][rows];
+        this.rows = Constants.ROWS;
+        this.columns = Constants.COLUMNS;
+        this.cells = new Cell[rows][columns];
         constructGrid();
-        placeNodes();
+        placeCells();
     }
 
     public Cell[][] getGrid() {
@@ -33,36 +33,56 @@ public class Grid {
         if (isOutOfBounds(x, y)) {
             return null;
         }
-        return cells[x][y];
+        return cells[y][x];
     }
 
-    public void selectCell(float x, float y) {
+    public Cell selectCell(float x, float y) {
         // Modify input to take into account forced margins on grid
-        x -= cellSize;
-        y += (cellSize * 3);
+        x -= (cellSize * 2);
+        y += (cellSize * 2);
         // (SCREEN_Y - y) due to difference in input/camera coordinate systems (inverted y, otherwise)
         Cell selected = getCell((int) x / cellSize, (int) (Constants.SCREEN_Y - y) / cellSize);
         if (selected != null && selected.isOccupied()) {
-            selected.toggleSelected();
+            return selected;
         }
+        return null;
     }
 
-    private void constructGrid() {
-        for (int x = 0; x < columns; x++) {
-            for (int y = 0; y < rows; y++) {
-                cells[x][y] = new Cell(x, y);
+    public void checkForCell(int[] dir, Cell cell) {
+        Cell foundCell = null;
+        boolean searching = true;
+        int x = cell.getX();
+        int y = cell.getY();
+        int dx = dir[0] < 0 ? -1 : dir[0] > 0 ? 1 : 0;
+        int dy = dir[1] < 0 ? -1 : dir[1] > 0 ? 1 : 0;
+
+        while (!isOutOfBounds(x + dx, y + dy) && searching) {
+            x += dx;
+            y += dy;
+            foundCell = getCell(x, y);
+            if (foundCell != null && foundCell.isOccupied()) {
+                searching = false;
+                foundCell.toggleSelected();
             }
         }
     }
 
-    private void placeNodes() {
+    private void constructGrid() {
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < columns; x++) {
+                cells[y][x] = new Cell(x, y);
+            }
+        }
+    }
+
+    private void placeCells() {
         Random random = new Random();
         for (Cell[] row : cells) {
             for (Cell cell : row) {
                 boolean[] neighbors = findNeighbors(cell.getX(), cell.getY());
                 if (!neighbors[0] && !neighbors[2]) {
-                    int nodeChance = random.nextInt(5);
-                    if (nodeChance > 2) {
+                    int nodeChance = random.nextInt(10);
+                    if (nodeChance > 6) {
                         cell.setOccupied();
                     }
                 }
