@@ -6,11 +6,16 @@
 
 package com.galenscovell.screens;
 
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquation;
+import aurelienribon.tweenengine.TweenManager;
+import aurelienribon.tweenengine.equations.Bounce;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -20,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
+import com.galenscovell.tween.ActorAccessor;
 import com.galenscovell.twine.TwineMain;
 import com.galenscovell.util.Constants;
 import com.galenscovell.util.ResourceManager;
@@ -28,11 +34,11 @@ import com.galenscovell.util.ResourceManager;
 public class MainMenuScreen implements Screen {
     private TwineMain root;
     private Stage stage;
+    private TweenManager tweenManager;
 
 
     public MainMenuScreen(TwineMain root) {
         this.root = root;
-        create();
     }
 
     private void create() {
@@ -91,6 +97,20 @@ public class MainMenuScreen implements Screen {
         mainTable.add(endTable).width(300).height(60).expand().fill().center();
 
         stage.addActor(mainTable);
+
+        this.tweenManager = new TweenManager();
+        Tween.registerAccessor(Actor.class, new ActorAccessor());
+        Tween.from(titleLabel, ActorAccessor.ALPHA, 0.5f)
+                .target(0)
+                .start(tweenManager);
+        Tween.from(titleLabel, ActorAccessor.POS_Y, 0.75f)
+                .target(100)
+                .ease(Bounce.OUT)
+                .start(tweenManager);
+        Tween.from(buttonTable, ActorAccessor.ALPHA, 0.5f)
+                .target(0)
+                .start(tweenManager);
+        tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
     @Override
@@ -99,6 +119,7 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
+        tweenManager.update(delta);
     }
 
     @Override
@@ -108,8 +129,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-        stage.getRoot().getColor().a = 0;
-        stage.getRoot().addAction(Actions.fadeIn(0.25f));
+        create();
         Gdx.input.setInputProcessor(stage);
     }
 

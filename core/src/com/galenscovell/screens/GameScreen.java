@@ -38,7 +38,6 @@ public class GameScreen implements Screen {
         this.viewport = new FitViewport((float) Constants.SCREEN_X, (float) Constants.SCREEN_Y, camera);
         camera.setToOrtho(true, Constants.SCREEN_X, Constants.SCREEN_Y);
         this.hud = new GameLayout();
-        createLevel();
     }
 
     public void selection(float x, float y) {
@@ -73,6 +72,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+        createLevel();
         Gdx.input.setInputProcessor(new GestureDetector(new InputHandler(this)));
     }
 
