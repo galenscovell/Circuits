@@ -23,7 +23,7 @@ public class ResourceManager {
     public static Label.LabelStyle buttonLabelStyle;
     public static Label.LabelStyle detailLabelStyle;
     public static NinePatchDrawable hudbarBG;
-    public static TiledDrawable boardBG;
+    public static NinePatchDrawable boardBG;
     public static TextButton.TextButtonStyle mainButtonStyle;
 
     public static void load() {
@@ -37,12 +37,12 @@ public class ResourceManager {
         BitmapFont largeFont = fontGenerator.generateFont(parameter);
         fontGenerator.dispose();
 
-        detailLabelStyle = new Label.LabelStyle(smallFont, Color.WHITE);
+        detailLabelStyle = new Label.LabelStyle(smallFont, Color.GRAY);
         buttonLabelStyle = new Label.LabelStyle(mediumFont, Color.WHITE);
         titleLabelStyle = new Label.LabelStyle(largeFont, Color.WHITE);
 
         hudbarBG = new NinePatchDrawable(atlas.createPatch("hudbar"));
-        boardBG = new TiledDrawable(atlas.findRegion("wood"));
+        boardBG = new NinePatchDrawable(atlas.createPatch("board"));
 
         mainButtonStyle = new TextButton.TextButtonStyle(hudbarBG, hudbarBG, hudbarBG, mediumFont);
     }

@@ -13,15 +13,16 @@ import com.galenscovell.util.ResourceManager;
 
 
 public class Cell {
-    private int x, y, connections;
-    private boolean occupied, selected;
+    private int x, y, maxConnections;
+    private int[] connections;
+    private boolean occupied, selected, bridged;
     private Sprite sprite;
 
 
     public Cell(int x, int y) {
         this.x = x;
         this.y = y;
-        this.connections = 0;
+        this.connections = null;
         this.sprite = new Sprite(ResourceManager.atlas.findRegion("empty"));
     }
 
@@ -33,28 +34,44 @@ public class Cell {
         return y;
     }
 
-    public int getConnections() {
+    public int[] getConnections() {
+        // [up, down, left, right]
         return connections;
     }
 
-    public void incrementConnections() {
-        connections++;
-        if (connections == 3) {
-            connections = 0;
+    public int sumConnections() {
+        int total = 0;
+        for (int val : connections) {
+            total += val;
         }
+        return total;
     }
 
     public void toggleSelected() {
         this.selected = selected ? false : true;
     }
 
+    public void setBridged(int dx, int dy) {
+        this.bridged = true;
+        if (dx == 0) {
+            this.sprite = new Sprite(ResourceManager.atlas.findRegion("twine_h_red"));
+        } else {
+            this.sprite = new Sprite(ResourceManager.atlas.findRegion("twine_v_red"));
+        }
+    }
+
     public void setOccupied() {
         this.occupied = true;
         this.sprite = new Sprite(ResourceManager.atlas.findRegion("screwhead"));
+        this.connections = new int[4];
     }
 
     public boolean isOccupied() {
         return occupied;
+    }
+
+    public boolean isBridged() {
+        return bridged;
     }
 
     public void draw(SpriteBatch batch, int cellSize) {

@@ -8,6 +8,8 @@ package com.galenscovell.logic;
 
 import com.galenscovell.util.Constants;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -22,7 +24,7 @@ public class Grid {
         this.columns = Constants.COLUMNS;
         this.cells = new Cell[rows][columns];
         constructGrid();
-        placeCells();
+        placeNodes();
     }
 
     public Cell[][] getGrid() {
@@ -48,8 +50,9 @@ public class Grid {
         return null;
     }
 
-    public void checkForCell(int[] dir, Cell cell) {
-        Cell foundCell = null;
+    public void checkMove(int[] dir, Cell cell) {
+        Cell foundCell;
+        List<Cell> coveredCells = new ArrayList<Cell>();
         boolean searching = true;
         int x = cell.getX();
         int y = cell.getY();
@@ -60,9 +63,18 @@ public class Grid {
             x += dx;
             y += dy;
             foundCell = getCell(x, y);
-            if (foundCell != null && foundCell.isOccupied()) {
-                searching = false;
-                foundCell.toggleSelected();
+            if (foundCell != null) {
+                if (foundCell.isOccupied()) {
+                    searching = false;
+                    foundCell.toggleSelected();
+                    for (Cell coveredCell : coveredCells) {
+                        coveredCell.setBridged(dy, dy);
+                    }
+                } else if (foundCell.isBridged()) {
+                    return;
+                } else {
+                    coveredCells.add(foundCell);
+                }
             }
         }
     }
@@ -75,7 +87,7 @@ public class Grid {
         }
     }
 
-    private void placeCells() {
+    private void placeNodes() {
         Random random = new Random();
         for (Cell[] row : cells) {
             for (Cell cell : row) {

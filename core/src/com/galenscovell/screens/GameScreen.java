@@ -47,7 +47,7 @@ public class GameScreen implements Screen {
 
     public void fling(int[] dir) {
         if (selectedCell != null) {
-            grid.checkForCell(dir, selectedCell);
+            grid.checkMove(dir, selectedCell);
         }
     }
 

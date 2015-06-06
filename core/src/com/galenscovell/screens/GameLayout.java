@@ -32,7 +32,7 @@ public class GameLayout extends Stage {
 
         Table gameBoard = new Table();
         gameBoard.setBackground(ResourceManager.boardBG);
-        mainTable.add(gameBoard).width(Constants.GAME_X).height(Constants.GAME_Y).expand().fill().center().padBottom(Constants.CELLSIZE);
+        mainTable.add(gameBoard).width(Constants.GAME_X).height(Constants.GAME_Y).expand().fill().center().padBottom(Constants.CELLSIZE * 0.75f);
 
         this.addActor(mainTable);
     }
