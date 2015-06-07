@@ -2,6 +2,8 @@ package com.galenscovell.screens;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.galenscovell.logic.Cell;
 import com.galenscovell.logic.Grid;
 import com.galenscovell.util.ResourceManager;
@@ -21,6 +23,14 @@ public class GameStage extends Stage {
     public GameStage() {
         super(new FitViewport(480, 800));
         create();
+    }
+
+    public void setInput() {
+
+    }
+
+    public void selection(int x, int y) {
+
     }
 
     private void create() {

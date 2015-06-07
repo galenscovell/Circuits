@@ -1,11 +1,11 @@
 package com.galenscovell.screens;
 
-import com.badlogic.gdx.graphics.GL20;
 import com.galenscovell.logic.Grid;
 import com.galenscovell.util.InputHandler;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.input.GestureDetector;
@@ -23,9 +23,10 @@ public class GameScreen implements Screen {
         this.root = root;
     }
 
-    private void createLevel() {
+    private void create() {
         this.gameStage = new GameStage();
         this.fullInput = new InputMultiplexer();
+        fullInput.addProcessor(gameStage);
         fullInput.addProcessor(new GestureDetector(new InputHandler(this)));
     }
 
@@ -44,7 +45,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        createLevel();
+        create();
         Gdx.input.setInputProcessor(fullInput);
     }
 
