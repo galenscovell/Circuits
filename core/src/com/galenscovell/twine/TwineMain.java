@@ -1,19 +1,13 @@
-
-/**
- * TWINE MAIN
- * Provides main entry for application. Handles screen transitions.
- */
-
 package com.galenscovell.twine;
-
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 
 import com.galenscovell.screens.GameScreen;
 import com.galenscovell.screens.MainMenuScreen;
 import com.galenscovell.screens.OptionsScreen;
 import com.galenscovell.util.ResourceManager;
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 
 
 public class TwineMain extends Game {
@@ -37,9 +31,9 @@ public class TwineMain extends Game {
     public void dispose () {
         ResourceManager.dispose();
         mainMenuScreen.dispose();
+        optionsScreen.dispose();
         if (gameScreen != null) {
             gameScreen.dispose();
         }
-        Gdx.app.exit();
     }
 }

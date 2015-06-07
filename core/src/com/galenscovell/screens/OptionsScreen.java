@@ -1,10 +1,8 @@
-
-/**
- * OPTIONS SCREEN
- * Screen displaying game options to player.
- */
-
 package com.galenscovell.screens;
+
+import com.galenscovell.tween.ActorAccessor;
+import com.galenscovell.twine.TwineMain;
+import com.galenscovell.util.ResourceManager;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -23,10 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
-import com.galenscovell.tween.ActorAccessor;
-import com.galenscovell.twine.TwineMain;
-import com.galenscovell.util.ResourceManager;
-
 
 public class OptionsScreen implements Screen {
     private TwineMain root;
@@ -36,6 +30,7 @@ public class OptionsScreen implements Screen {
 
     public OptionsScreen(TwineMain root) {
         this.root = root;
+        create();
     }
 
     private void create() {
@@ -61,13 +56,13 @@ public class OptionsScreen implements Screen {
         TextButton soundButton = new TextButton("SFX", ResourceManager.mainButtonStyle);
         soundButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-
+                // TODO: Implement sfx
             }
         });
         TextButton musicButton = new TextButton("Music", ResourceManager.mainButtonStyle);
         musicButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-
+                // TODO: Implement music
             }
         });
         TextButton returnButton = new TextButton("Return", ResourceManager.mainButtonStyle);
@@ -126,7 +121,6 @@ public class OptionsScreen implements Screen {
 
     @Override
     public void show() {
-        create();
         Gdx.input.setInputProcessor(stage);
     }
 

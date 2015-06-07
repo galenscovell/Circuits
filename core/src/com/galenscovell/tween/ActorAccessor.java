@@ -1,14 +1,7 @@
-
-/**
- * ACTOR ACCESSOR
- * Actor accessor for Universal Tween Engine.
- */
-
 package com.galenscovell.tween;
 
 import aurelienribon.tweenengine.TweenAccessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.galenscovell.util.Constants;
 
 
 public class ActorAccessor implements TweenAccessor<Actor> {

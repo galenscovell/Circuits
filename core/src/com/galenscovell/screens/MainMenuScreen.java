@@ -1,16 +1,12 @@
-
-/**
- * MAIN MENU SCREEN
- * Application entry screen displaying broad game options to player.
- */
-
 package com.galenscovell.screens;
 
+import com.galenscovell.tween.ActorAccessor;
+import com.galenscovell.twine.TwineMain;
+import com.galenscovell.util.ResourceManager;
+
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.TweenManager;
 import aurelienribon.tweenengine.equations.Bounce;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -25,11 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
-import com.galenscovell.tween.ActorAccessor;
-import com.galenscovell.twine.TwineMain;
-import com.galenscovell.util.Constants;
-import com.galenscovell.util.ResourceManager;
-
 
 public class MainMenuScreen implements Screen {
     private TwineMain root;
@@ -39,6 +30,7 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(TwineMain root) {
         this.root = root;
+        create();
     }
 
     private void create() {
@@ -129,7 +121,6 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-        create();
         Gdx.input.setInputProcessor(stage);
     }
 

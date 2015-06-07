@@ -1,15 +1,8 @@
-
-/**
- * INPUT HANDLER
- * Sets up gesture/input detector for player interaction.
- */
-
 package com.galenscovell.util;
 
-import com.badlogic.gdx.input.GestureDetector;
-
-import com.galenscovell.logic.Cell;
 import com.galenscovell.screens.GameScreen;
+
+import com.badlogic.gdx.input.GestureDetector;
 
 
 public class InputHandler extends GestureDetector.GestureAdapter {
@@ -21,8 +14,7 @@ public class InputHandler extends GestureDetector.GestureAdapter {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        game.selection(x, y);
-        return true;
+        return false;
     }
 
     @Override
@@ -36,12 +28,12 @@ public class InputHandler extends GestureDetector.GestureAdapter {
             }
         } else {
             if (velocityY < 0) {
-                dir[1] = 1;
-            } else {
                 dir[1] = -1;
+            } else {
+                dir[1] = 1;
             }
         }
-        game.fling(dir);
+        // game.fling(dir);
         return true;
     }
 
