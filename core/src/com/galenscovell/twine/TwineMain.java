@@ -6,12 +6,12 @@ import com.galenscovell.screens.OptionsScreen;
 import com.galenscovell.util.ResourceManager;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 
 
 public class TwineMain extends Game {
-    public Screen gameScreen, mainMenuScreen, optionsScreen;
+    public GameScreen gameScreen;
+    public MainMenuScreen mainMenuScreen;
+    public OptionsScreen optionsScreen;
 
 
     @Override
@@ -30,10 +30,5 @@ public class TwineMain extends Game {
     @Override
     public void dispose () {
         ResourceManager.dispose();
-        mainMenuScreen.dispose();
-        optionsScreen.dispose();
-        if (gameScreen != null) {
-            gameScreen.dispose();
-        }
     }
 }

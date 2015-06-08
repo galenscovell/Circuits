@@ -13,11 +13,6 @@ public class InputHandler extends GestureDetector.GestureAdapter {
     }
 
     @Override
-    public boolean touchDown(float x, float y, int pointer, int button) {
-        return false;
-    }
-
-    @Override
     public boolean fling(float velocityX, float velocityY, int button) {
         int[] dir = new int[2];
         if (Math.abs(velocityX) > Math.abs(velocityY)) {
@@ -35,16 +30,6 @@ public class InputHandler extends GestureDetector.GestureAdapter {
         }
         // game.fling(dir);
         return true;
-    }
-
-    @Override
-    public boolean tap(float x, float y, int count, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean longPress(float x, float y) {
-        return false;
     }
 
     @Override

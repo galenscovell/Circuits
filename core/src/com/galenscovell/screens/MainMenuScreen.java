@@ -1,5 +1,6 @@
 package com.galenscovell.screens;
 
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.galenscovell.tween.ActorAccessor;
 import com.galenscovell.twine.TwineMain;
 import com.galenscovell.util.ResourceManager;
@@ -30,11 +31,10 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(TwineMain root) {
         this.root = root;
-        create();
     }
 
     private void create() {
-        this.stage = new Stage();
+        this.stage = new Stage(new FitViewport(480, 800));
 
         // Overall root table
         Table mainTable = new Table();
@@ -92,16 +92,17 @@ public class MainMenuScreen implements Screen {
 
         this.tweenManager = new TweenManager();
         Tween.registerAccessor(Actor.class, new ActorAccessor());
+
         Tween.from(titleLabel, ActorAccessor.ALPHA, 0.5f)
-                .target(0)
-                .start(tweenManager);
+            .target(0)
+            .start(tweenManager);
         Tween.from(titleLabel, ActorAccessor.POS_Y, 0.75f)
-                .target(100)
-                .ease(Bounce.OUT)
-                .start(tweenManager);
+            .target(100)
+            .ease(Bounce.OUT)
+            .start(tweenManager);
         Tween.from(buttonTable, ActorAccessor.ALPHA, 0.5f)
-                .target(0)
-                .start(tweenManager);
+            .target(0)
+            .start(tweenManager);
         tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
@@ -116,11 +117,12 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        stage.getViewport().update(width, height);
     }
 
     @Override
     public void show() {
+        create();
         Gdx.input.setInputProcessor(stage);
     }
 
