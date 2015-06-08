@@ -1,15 +1,16 @@
-
-/**
- * Desktop launcher for application.
- */
-
 package com.galenscovell.twine.desktop;
+
+import com.galenscovell.twine.TwineMain;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-import com.galenscovell.twine.TwineMain;
-
+/**
+ * DESKTOP LAUNCHER
+ * Sets up application for run on desktop environment.
+ *
+ * @author Galen Scovell
+ */
 
 public class DesktopLauncher {
     public static void main (String[] arg) {
