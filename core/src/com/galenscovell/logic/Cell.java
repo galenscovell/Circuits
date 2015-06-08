@@ -8,11 +8,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import java.util.Random;
+
 
 public class Cell extends Actor {
     private Grid grid;
     private int gridX, gridY;
-    private int connections;
+    private int maxConnections;
+    private int[] connections;
     private boolean selected, active, node, twine;
     private TextureRegion texture;
 
@@ -49,9 +52,10 @@ public class Cell extends Actor {
         return gridY;
     }
 
-    public void setNode() {
+    public void setNode(int maxConnections) {
         this.node = true;
-        texture = new TextureRegion(ResourceManager.atlas.findRegion("screwhead"));
+        this.maxConnections = maxConnections;
+        texture = new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections));
     }
 
     public boolean isNode() {
@@ -60,10 +64,12 @@ public class Cell extends Actor {
 
     public void setTwine(int dir) {
         this.twine = true;
+        // Random random = new Random();
+        // int color = random.nextInt(7);
         if (dir == 0) {
-            texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_v"));
+            texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_red_v"));
         } else {
-            texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_h"));
+            texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_red_h"));
         }
     }
 

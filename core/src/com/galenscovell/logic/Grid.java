@@ -1,5 +1,8 @@
 package com.galenscovell.logic;
 
+import com.badlogic.gdx.Gdx;
+import com.galenscovell.util.LevelParser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,16 +17,17 @@ public class Grid {
     }
 
     public void loadLevel() {
-        Random random = new Random();
+        LevelParser parser = new LevelParser();
+        int[][] values = parser.parseLevel("very_easy", 1);
+
         for (Cell[] row : cells) {
             for (Cell cell : row) {
-                boolean[] neighbors = findNeighbors(cell.getGridX(), cell.getGridY());
-                if (!neighbors[0] && !neighbors[2]) {
-                    int chance = random.nextInt(10);
-                    if (chance > 5) {
-                        cell.setNode();
-                    }
+                int gridX = cell.getGridX();
+                int gridY = cell.getGridY();
+                if (values[gridY][gridX] == 0) {
+                    continue;
                 }
+                cell.setNode(values[gridY][gridX]);
             }
         }
     }
