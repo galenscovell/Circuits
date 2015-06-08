@@ -64,9 +64,22 @@ public class Grid {
             y += dy;
             foundCell = getCell(x, y);
             if (foundCell != null) {
-                if (foundCell.isNode()) {
+                if (foundCell.isNode() && !foundCell.isFull()) {
                     searching = false;
                     foundCell.toggleSelected();
+                    if (dy > 0) {
+                        cell.addConnection(0);
+                        foundCell.addConnection(1);
+                    } else if (dy < 0) {
+                        cell.addConnection(1);
+                        foundCell.addConnection(0);
+                    } else if (dx < 0) {
+                        cell.addConnection(2);
+                        foundCell.addConnection(3);
+                    } else {
+                        cell.addConnection(3);
+                        foundCell.addConnection(2);
+                    }
                     for (Cell coveredCell : coveredCells) {
                         if (dx == 0) {
                             coveredCell.setTwine(0);

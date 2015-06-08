@@ -23,6 +23,7 @@ public class Cell extends Actor {
         this.grid = grid;
         this.gridX = x;
         this.gridY = y;
+        this.connections = new int[4];
         this.texture = new TextureRegion(ResourceManager.atlas.findRegion("empty"));
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -50,6 +51,34 @@ public class Cell extends Actor {
 
     public int getGridY() {
         return gridY;
+    }
+
+    public int[] getConnections() {
+        // Up, down, left, right
+        return connections;
+    }
+
+    public void addConnection(int dir) {
+        if (sumConnections() < maxConnections) {
+            if (connections[dir] == 2) {
+                connections[dir] = 0;
+            } else {
+                connections[dir]++;
+            }
+            System.out.println("Connection made");
+        }
+    }
+
+    public boolean isFull() {
+        return sumConnections() == maxConnections;
+    }
+
+    private int sumConnections() {
+        int sum = 0;
+        for (int val : connections) {
+            sum += val;
+        }
+        return sum;
     }
 
     public void setNode(int maxConnections) {
@@ -87,10 +116,12 @@ public class Cell extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (selected) {
+        if (isNode() && sumConnections() == maxConnections) {
             batch.setColor(0.2f, 0.6f, 0.2f, 1);
+            batch.draw(texture, getX(), getY(), 48, 48);
+            batch.setColor(1, 1, 1, 1);
+        } else {
+            batch.draw(texture, getX(), getY(), 48, 48);
         }
-        batch.draw(texture, getX(), getY(), 48, 48);
-        batch.setColor(1, 1, 1, 1);
     }
 }
