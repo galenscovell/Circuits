@@ -1,13 +1,10 @@
 package com.galenscovell.screens;
 
-import com.galenscovell.tween.ActorAccessor;
 import com.galenscovell.util.ResourceManager;
 import com.galenscovell.twine.TwineMain;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -23,15 +20,14 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  * @author Galen Scovell
  */
 
-public class LoadingScreen implements Screen {
-    private TwineMain root;
+public class LoadingScreen extends AbstractScreen {
     private Stage stage;
 
     public LoadingScreen(TwineMain root) {
-        this.root = root;
+        super(root);
     }
 
-    private void create() {
+    protected void create() {
         this.stage = new Stage(new FitViewport(480, 800));
 
         Table splashMain = new Table();
@@ -44,7 +40,6 @@ public class LoadingScreen implements Screen {
         stage.addActor(splashMain);
     }
 
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -54,35 +49,10 @@ public class LoadingScreen implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height);
-    }
-
-    @Override
     public void show() {
         create();
         stage.getRoot().getColor().a = 0;
         stage.getRoot().addAction(Actions.sequence(Actions.fadeIn(1.0f), Actions.fadeOut(1.0f), toMainMenuScreen));
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
     }
 
     Action toMainMenuScreen = new Action() {
@@ -91,5 +61,4 @@ public class LoadingScreen implements Screen {
             return true;
         }
     };
-
 }

@@ -21,7 +21,6 @@ public class TwineMain extends Game {
     public OptionsScreen optionsScreen;
     public GameScreen gameScreen;
 
-
     @Override
     public void create () {
         ResourceManager.load();
