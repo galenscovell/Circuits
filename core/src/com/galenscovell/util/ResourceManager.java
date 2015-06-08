@@ -1,9 +1,3 @@
-
-/**
- * RESOURCE MANAGER
- * Handles loading of game assets.
- */
-
 package com.galenscovell.util;
 
 import com.badlogic.gdx.Gdx;
@@ -14,8 +8,13 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 
+/**
+ * RESOURCE MANAGER
+ * Handles loading of game assets.
+ *
+ * @author Galen Scovell
+ */
 
 public class ResourceManager {
     public static TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/textures.pack"));

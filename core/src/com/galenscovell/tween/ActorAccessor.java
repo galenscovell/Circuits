@@ -1,8 +1,15 @@
 package com.galenscovell.tween;
 
 import aurelienribon.tweenengine.TweenAccessor;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+/**
+ * ACTOR ACCESSOR
+ * Accessor for Actor class, used by Universal Tween Engine.
+ *
+ * @author Galen Scovell
+ */
 
 public class ActorAccessor implements TweenAccessor<Actor> {
     public static final int POS_X = 0;

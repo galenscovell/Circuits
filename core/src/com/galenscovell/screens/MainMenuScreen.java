@@ -1,6 +1,5 @@
 package com.galenscovell.screens;
 
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.galenscovell.tween.ActorAccessor;
 import com.galenscovell.twine.TwineMain;
 import com.galenscovell.util.ResourceManager;
@@ -8,6 +7,7 @@ import com.galenscovell.util.ResourceManager;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 import aurelienribon.tweenengine.equations.Bounce;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -21,7 +21,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
+/**
+ * MAINMENU SCREEN
+ * Displays primary game menu to player.
+ *
+ * @author Galen Scovell
+ */
 
 public class MainMenuScreen implements Screen {
     private TwineMain root;

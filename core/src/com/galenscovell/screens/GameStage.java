@@ -11,6 +11,12 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * GAME STAGE
+ * Stage holding all actors for the game as well as navigation bars.
+ *
+ * @author Galen Scovell
+ */
 
 public class GameStage extends Stage {
     private Grid grid;

@@ -1,12 +1,19 @@
 package com.galenscovell.logic;
 
-import com.badlogic.gdx.Gdx;
 import com.galenscovell.util.LevelParser;
+
+import com.badlogic.gdx.Gdx;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * GRID
+ * Handles cell grid events and organization.
+ *
+ * @author Galen Scovell
+ */
 
 public class Grid {
     private Cell[][] cells;

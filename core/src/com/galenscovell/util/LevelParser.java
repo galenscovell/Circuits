@@ -1,14 +1,17 @@
 package com.galenscovell.util;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Random;
-import java.util.Scanner;
+
+/**
+ * LEVEL PARSER
+ * Takes in .txt file and creates 2D array of values for level creation.
+ *
+ * @author Galen Scovell
+ */
 
 public class LevelParser {
 

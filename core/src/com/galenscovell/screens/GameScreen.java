@@ -6,6 +6,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+/**
+ * GAME SCREEN
+ * Handles screen events for main game, handles game loop for game stage.
+ *
+ * @author Galen Scovell
+ */
 
 public class GameScreen implements Screen {
     private Game root;

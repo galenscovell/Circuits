@@ -2,14 +2,20 @@ package com.galenscovell.logic;
 
 import com.galenscovell.util.ResourceManager;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
 import java.util.Random;
 
+/**
+ * CELL
+ * Each cell is an Actor with its own inputlistener, state, texture and connections.
+ *
+ * @author Galen Scovell
+ */
 
 public class Cell extends Actor {
     private Grid grid;
