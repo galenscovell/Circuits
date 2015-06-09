@@ -35,7 +35,7 @@ public class GameStage extends Stage {
         // Top bar
         Table topTable = new Table();
         topTable.setBackground(ResourceManager.hudbarBG);
-        mainTable.add(topTable).height(48).expand().fill().center();
+        mainTable.add(topTable).height(64).expand().fill().center();
         mainTable.row();
 
         // Main game board
@@ -44,14 +44,14 @@ public class GameStage extends Stage {
 
         Table gridTable = buildBoard(9, 9);
         gameBoard.add(gridTable).center();
-        mainTable.add(gameBoard).height(704).expand().fill().center();
+        mainTable.add(gameBoard).height(672).expand().fill().center();
         mainTable.row();
 
 
         // Bottom bar
         Table bottomTable = new Table();
         bottomTable.setBackground(ResourceManager.hudbarBG);
-        mainTable.add(bottomTable).height(48).expand().fill().center();
+        mainTable.add(bottomTable).height(64).expand().fill().center();
         mainTable.row();
 
         this.addActor(mainTable);
@@ -66,7 +66,7 @@ public class GameStage extends Stage {
             for (int x = 0; x < columns; x++) {
                 Cell cell = new Cell(x, y, grid);
                 cells[y][x] = cell;
-                gridTable.add(cell).width(48).height(48);
+                gridTable.add(cell).width(52).height(52);
             }
             gridTable.row();
         }

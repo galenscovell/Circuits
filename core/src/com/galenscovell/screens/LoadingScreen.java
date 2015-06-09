@@ -5,17 +5,17 @@ import com.galenscovell.twine.TwineMain;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
  * LOADING SCREEN
- * Displays loading animation asynchronously while game resources are loading.
+ * Displays splash image asynchronously while game resources are loading.
  *
  * @author Galen Scovell
  */
@@ -27,15 +27,13 @@ public class LoadingScreen extends AbstractScreen {
     }
 
     protected void create() {
-        ResourceManager.create();
         this.stage = new Stage(new FitViewport(480, 800));
 
         Table splashMain = new Table();
         splashMain.setFillParent(true);
 
-        Label splashLabel = new Label("Loading", ResourceManager.buttonLabelStyle);
-        splashLabel.setAlignment(Align.center);
-        splashMain.add(splashLabel).expand().fill().center();
+        Image splashImage = new Image(ResourceManager.assetManager.get("textures/splash.png", Texture.class));
+        splashMain.add(splashImage).expand().center();
 
         stage.addActor(splashMain);
     }
@@ -54,9 +52,12 @@ public class LoadingScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        ResourceManager.create();
+        ResourceManager.assetManager.load("textures/splash.png", Texture.class);
+        ResourceManager.assetManager.finishLoading();
         create();
         stage.getRoot().getColor().a = 0;
-        stage.getRoot().addAction(Actions.sequence(Actions.fadeIn(0.5f)));
+        stage.getRoot().addAction(Actions.sequence(Actions.fadeIn(0.1f)));
     }
 
     Action toMainMenuScreen = new Action() {

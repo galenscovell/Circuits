@@ -1,11 +1,14 @@
 package com.galenscovell.util;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -21,7 +24,6 @@ public class ResourceManager {
     public static AssetManager assetManager;
     public static TextureAtlas atlas;
 
-    public static BitmapFont smallFont, mediumFont, largeFont;
     public static Label.LabelStyle titleLabelStyle;
     public static Label.LabelStyle buttonLabelStyle;
     public static Label.LabelStyle detailLabelStyle;
@@ -35,33 +37,43 @@ public class ResourceManager {
     }
 
     private static void load() {
-        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("ui/kenpixel_blocks.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 12;
-        smallFont = fontGenerator.generateFont(parameter);
-        parameter.size = 24;
-        mediumFont = fontGenerator.generateFont(parameter);
-        parameter.size = 64;
-        largeFont = fontGenerator.generateFont(parameter);
-        fontGenerator.dispose();
-
-        detailLabelStyle = new Label.LabelStyle(smallFont, Color.GRAY);
-        buttonLabelStyle = new Label.LabelStyle(mediumFont, Color.WHITE);
-        titleLabelStyle = new Label.LabelStyle(largeFont, Color.WHITE);
-
         assetManager.load("textures/textures.pack", TextureAtlas.class);
+
+        FileHandleResolver resolver = new InternalFileHandleResolver();
+        assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+        assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter smallParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        smallParams.fontFileName = "ui/kenpixel_blocks.ttf";
+        smallParams.fontParameters.size = 12;
+        assetManager.load("smallFont.ttf", BitmapFont.class, smallParams);
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter mediumParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        mediumParams.fontFileName = "ui/kenpixel_blocks.ttf";
+        mediumParams.fontParameters.size = 24;
+        assetManager.load("mediumFont.ttf", BitmapFont.class, mediumParams);
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter largeParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        largeParams.fontFileName = "ui/kenpixel_blocks.ttf";
+        largeParams.fontParameters.size = 64;
+        assetManager.load("largeFont.ttf", BitmapFont.class, largeParams);
     }
 
     public static void done() {
         atlas = assetManager.get("textures/textures.pack", TextureAtlas.class);
 
+        detailLabelStyle = new Label.LabelStyle(assetManager.get("smallFont.ttf", BitmapFont.class), Color.GRAY);
+        buttonLabelStyle = new Label.LabelStyle(assetManager.get("mediumFont.ttf", BitmapFont.class), Color.WHITE);
+        titleLabelStyle = new Label.LabelStyle(assetManager.get("largeFont.ttf", BitmapFont.class), Color.WHITE);
+
         hudbarBG = new NinePatchDrawable(atlas.createPatch("hudbar"));
         boardBG = new NinePatchDrawable(atlas.createPatch("board"));
 
-        mainButtonStyle = new TextButton.TextButtonStyle(hudbarBG, hudbarBG, hudbarBG, mediumFont);
+        mainButtonStyle = new TextButton.TextButtonStyle(hudbarBG, hudbarBG, hudbarBG, assetManager.get("mediumFont.ttf", BitmapFont.class));
     }
 
     public static void dispose() {
         assetManager.dispose();
+        atlas.dispose();
     }
 }

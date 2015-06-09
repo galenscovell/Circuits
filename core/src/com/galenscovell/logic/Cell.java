@@ -113,21 +113,21 @@ public class Cell extends Actor {
     }
 
     public void toggleSelected() {
-        this.selected = selected ? false : true;
+        this.selected = !selected;
     }
 
     public void toggleActive() {
-        this.active = active ? false : true;
+        this.active = !active;
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (isNode() && sumConnections() == maxConnections) {
             batch.setColor(0.2f, 0.6f, 0.2f, 1);
-            batch.draw(texture, getX(), getY(), 48, 48);
+            batch.draw(texture, getX(), getY(), 52, 52);
             batch.setColor(1, 1, 1, 1);
         } else {
-            batch.draw(texture, getX(), getY(), 48, 48);
+            batch.draw(texture, getX(), getY(), 52, 52);
         }
     }
 }

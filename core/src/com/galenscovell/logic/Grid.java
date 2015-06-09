@@ -42,7 +42,7 @@ public class Grid {
     public void move(float velocityX, float velocityY, Cell cell) {
         int[] dir = new int[2];
         if (Math.abs(velocityX) > Math.abs(velocityY)) {
-            dir[0] = (velocityX < 0) ? 1 : -1;
+            dir[0] = (velocityX < 0) ? -1 : 1;
         } else {
             dir[1] = (velocityY < 0) ? 1 : -1;
         }

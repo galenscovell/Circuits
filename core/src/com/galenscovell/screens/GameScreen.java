@@ -18,15 +18,15 @@ public class GameScreen extends AbstractScreen {
         super(root);
     }
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(delta);
-        stage.draw();
-    }
-
     protected void create() {
         this.stage = new GameStage();
+    }
+
+    @Override
+    public void render(float delta) {
+        stage.act(delta);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.draw();
     }
 }
