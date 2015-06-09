@@ -21,7 +21,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 
 public class LoadingScreen extends AbstractScreen {
-    private Stage stage;
 
     public LoadingScreen(TwineMain root) {
         super(root);

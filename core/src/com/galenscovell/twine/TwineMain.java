@@ -38,5 +38,11 @@ public class TwineMain extends Game {
     @Override
     public void dispose () {
         ResourceManager.dispose();
+        loadingScreen.dispose();
+        mainMenuScreen.dispose();
+        optionsScreen.dispose();
+        if (gameScreen != null) {
+            gameScreen.dispose();
+        }
     }
 }
