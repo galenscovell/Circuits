@@ -71,8 +71,15 @@ public class Cell extends Actor {
             } else {
                 connections[dir]++;
             }
-            System.out.println("Connection made");
         }
+    }
+
+    public void removeConnection(int dir) {
+        connections[dir]--;
+    }
+
+    public void resetConnections() {
+        this.connections = new int[4];
     }
 
     public boolean isFull() {
@@ -100,12 +107,17 @@ public class Cell extends Actor {
     public void setTwine(int dir) {
         this.twine = true;
         // Random random = new Random();
-        // int color = random.nextInt(7);
+        // int color = random.nextInt(8);
         if (dir == 0) {
-            texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_red_v"));
+            this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_red_v"));
         } else {
-            texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_red_h"));
+            this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_red_h"));
         }
+    }
+
+    public void removeTwine() {
+        this.twine = false;
+        this.texture = new TextureRegion(ResourceManager.atlas.findRegion("empty"));
     }
 
     public boolean isTwine() {
