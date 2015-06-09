@@ -23,7 +23,6 @@ public class TwineMain extends Game {
 
     @Override
     public void create () {
-        ResourceManager.load();
         this.loadingScreen = new LoadingScreen(this);
         this.mainMenuScreen = new MainMenuScreen(this);
         this.optionsScreen = new OptionsScreen(this);

@@ -42,29 +42,22 @@ public class Grid {
     public void move(float velocityX, float velocityY, Cell cell) {
         int[] dir = new int[2];
         if (Math.abs(velocityX) > Math.abs(velocityY)) {
-            if (velocityX < 0) {
-                dir[0] = -1;
-            } else {
-                dir[0] = 1;
-            }
+            dir[0] = (velocityX < 0) ? 1 : -1;
         } else {
-            if (velocityY < 0) {
-                dir[1] = 1;
-            } else {
-                dir[1] = -1;
-            }
+            dir[1] = (velocityY < 0) ? 1 : -1;
         }
         checkMove(dir, cell);
     }
 
     private void checkMove(int[] dir, Cell cell) {
+        int x = cell.getGridX();
+        int y = cell.getGridY();
+        int dx = (dir[0] < 0) ? -1 : (dir[0] > 0) ? 1 : 0;
+        int dy = (dir[1] < 0) ? -1 : (dir[1] > 0) ? 1 : 0;
+
         Cell foundCell;
         List<Cell> coveredCells = new ArrayList<Cell>();
         boolean searching = true;
-        int x = cell.getGridX();
-        int y = cell.getGridY();
-        int dx = dir[0] < 0 ? -1 : dir[0] > 0 ? 1 : 0;
-        int dy = dir[1] < 0 ? -1 : dir[1] > 0 ? 1 : 0;
 
         while (!isOutOfBounds(x + dx, y + dy) && searching) {
             x += dx;

@@ -27,12 +27,13 @@ public class LoadingScreen extends AbstractScreen {
     }
 
     protected void create() {
+        ResourceManager.create();
         this.stage = new Stage(new FitViewport(480, 800));
 
         Table splashMain = new Table();
         splashMain.setFillParent(true);
 
-        Label splashLabel = new Label("Splash goes here", ResourceManager.buttonLabelStyle);
+        Label splashLabel = new Label("Loading", ResourceManager.buttonLabelStyle);
         splashLabel.setAlignment(Align.center);
         splashMain.add(splashLabel).expand().fill().center();
 
@@ -45,13 +46,17 @@ public class LoadingScreen extends AbstractScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
+        if (ResourceManager.assetManager.update()) {
+            ResourceManager.done();
+            stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.5f), toMainMenuScreen));
+        }
     }
 
     @Override
     public void show() {
         create();
         stage.getRoot().getColor().a = 0;
-        stage.getRoot().addAction(Actions.sequence(Actions.fadeIn(1.0f), Actions.fadeOut(1.0f), toMainMenuScreen));
+        stage.getRoot().addAction(Actions.sequence(Actions.fadeIn(0.5f)));
     }
 
     Action toMainMenuScreen = new Action() {
