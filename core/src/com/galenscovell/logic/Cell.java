@@ -32,8 +32,10 @@ public class Cell extends Actor {
         this.texture = new TextureRegion(ResourceManager.atlas.findRegion("empty"));
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                toggleSelected();
-                toggleActive();
+                if (isNode()) {
+                    toggleSelected();
+                    toggleActive();
+                }
             }
 
             public void fling(InputEvent event, float velocityX, float velocityY, int button) {
@@ -58,26 +60,16 @@ public class Cell extends Actor {
         return gridY;
     }
 
-    public int[] getConnections() {
-        // Up, down, left, right
-        return connections;
-    }
-
     public void addConnection(int dir) {
-        if (!isFull()) {
-            if (directionFull(dir)) {
-                resetConnection(dir);
-            } else {
-                connections[dir]++;
-                totalConnections++;
-            }
+        if (isFull()) {
+            return;
         }
-        System.out.println("Node: " + maxConnections + ", " + totalConnections);
-    }
-
-    public void removeConnection(int dir) {
-        connections[dir]--;
-        totalConnections--;
+        if (directionFull(dir)) {
+            resetConnection(dir);
+        } else {
+            connections[dir]++;
+            totalConnections++;
+        }
     }
 
     public void resetConnection(int dir) {
@@ -93,14 +85,10 @@ public class Cell extends Actor {
         return totalConnections == maxConnections;
     }
 
-    private int totalConnections() {
-        return totalConnections;
-    }
-
     public void setNode(int maxConnections) {
         this.node = true;
         this.maxConnections = maxConnections;
-        this.texture = new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections));
+        this.texture = new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections + "s"));
     }
 
     public boolean isNode() {
@@ -108,7 +96,7 @@ public class Cell extends Actor {
     }
 
     public void setTwine(int dir) {
-        if (dir == 0) {
+        if (dir == 0 || dir == 1) {
             if (isTwine()) {
                 this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_double_v"));
             } else {

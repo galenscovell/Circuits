@@ -16,10 +16,12 @@ public class Grid {
     private Cell[][] cells;
 
     public void updateCells(Cell[][] cells) {
+        // Set grid cells from GameStage
         this.cells = cells;
     }
 
     public void loadLevel() {
+        // Parse new level layout and dole out values to grid cells
         LevelParser parser = new LevelParser();
         int[][] values = parser.parseLevel("very_easy", 1);
 
@@ -36,55 +38,52 @@ public class Grid {
     }
 
     public void move(float velocityX, float velocityY, Cell cell) {
-        int[] move = new int[2];
-        if (Math.abs(velocityX) > Math.abs(velocityY)) {
-            move[0] = (velocityX < 0) ? -1 : 1;
-        } else {
-            move[1] = (velocityY < 0) ? 1 : -1;
-        }
+        // Determine move direction based on fling velocities
         int dir;
-        if (move[0] > 0) {
-            dir = 3;
-        } else if (move[0] < 0) {
-            dir = 2;
-        } else if (move[1] > 0) {
-            dir = 1;
+        if (Math.abs(velocityX) > Math.abs(velocityY)) {
+            if (velocityX < 0) {
+                dir = 2; // Left
+            } else {
+                dir = 3; // Right
+            }
         } else {
-            dir = 0;
+            if (velocityY > 0) {
+                dir = 0; // Up
+            } else {
+                dir = 1; // Down
+            }
         }
         checkMove(dir, cell);
     }
 
     private void checkMove(int dir, Cell cell) {
+        // If node or move direction full, remove bridges in that direction
         if (cell.isFull() || cell.directionFull(dir)) {
             removeBridge(cell.getGridX(), cell.getGridY(), dir);
             cell.resetConnection(dir);
             return;
         }
-        int x = cell.getGridX();
-        int y = cell.getGridY();
+        // Otherwise cast ray in direction, analyzing each hit cell along the way
         int dx = (dir == 2) ? -1 : (dir == 3) ? 1 : 0;
         int dy = (dir == 0) ? -1 : (dir == 1) ? 1 : 0;
-
         List<Cell> coveredCells = new ArrayList<Cell>();
-        while (!isOutOfBounds(x + dx, y + dy)) {
-            Cell foundCell = getCell(x + dx, y + dy);
+        // If values hit bounds, exit
+        while (!isOutOfBounds(cell.getGridX() + dx, cell.getGridY() + dy)) {
+            Cell foundCell = getCell(cell.getGridX() + dx, cell.getGridY() + dy);
+            // If hit cell is available node, create bridge and exit
             if (foundCell.isNode()) {
                 if (!foundCell.isFull() && !foundCell.directionFull(getOppositeDirection(dir))) {
                     cell.addConnection(dir);
                     foundCell.addConnection(getOppositeDirection(dir));
                     for (Cell coveredCell : coveredCells) {
-                        // Set bridge orientation (vertical or horizontal)
-                        if (dx == 0) {
-                            coveredCell.setTwine(0);
-                        } else {
-                            coveredCell.setTwine(1);
-                        }
+                        coveredCell.setTwine(dir);
                     }
                 }
                 return;
-            } else if (foundCell.isTwine() && (!(foundCell.getCreatedDirection() == dir || foundCell.getCreatedDirection() == getOppositeDirection(dir)))) {
+            // If hit cell is bridge and not overlapping direction, exit
+            } else if (foundCell.isTwine() && !bridgeOverlap(foundCell, dir)) {
                 return;
+            // Otherwise add cell to list for later iteration of bridge creation
             } else {
                 coveredCells.add(foundCell);
             }
@@ -93,18 +92,22 @@ public class Grid {
         }
     }
 
+    private boolean bridgeOverlap(Cell cell, int dir) {
+        // Check if new bridge direction overlaps old bridge (for double bridge creation)
+        return cell.getCreatedDirection() == dir || cell.getCreatedDirection() == getOppositeDirection(dir);
+    }
+
     private int getOppositeDirection(int dir) {
-        int oppositeDirection;
+        // Return opposing direction for handling node on other side of bridge
         if (dir == 0) {
-            oppositeDirection = 1;
+            return 1;
         } else if (dir == 1) {
-            oppositeDirection = 0;
+            return 0;
         } else if (dir == 2) {
-            oppositeDirection = 3;
+            return 3;
         } else {
-            oppositeDirection = 2;
+            return 2;
         }
-        return oppositeDirection;
     }
 
     private Cell getCell(int x, int y) {
@@ -115,6 +118,7 @@ public class Grid {
     }
 
     private void removeBridge(int x, int y, int dir) {
+        // Cast ray in direction from node, removing all bridges
         int dx = 0;
         int dy = 0;
         if (dir == 0) {
@@ -129,7 +133,7 @@ public class Grid {
         while (!isOutOfBounds(x + dx, y + dy)) {
             Cell found = getCell(x + dx, y + dy);
             if (found.isNode()) {
-                found.removeConnection(getOppositeDirection(dir));
+                found.resetConnection(getOppositeDirection(dir));
                 return;
             } else if (found.isTwine()) {
                 found.removeTwine();
