@@ -4,7 +4,6 @@ import com.galenscovell.util.LevelParser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * GRID
@@ -15,7 +14,6 @@ import java.util.Random;
 
 public class Grid {
     private Cell[][] cells;
-
 
     public void updateCells(Cell[][] cells) {
         this.cells = cells;
@@ -38,63 +36,75 @@ public class Grid {
     }
 
     public void move(float velocityX, float velocityY, Cell cell) {
-        int[] dir = new int[2];
+        int[] move = new int[2];
         if (Math.abs(velocityX) > Math.abs(velocityY)) {
-            dir[0] = (velocityX < 0) ? -1 : 1;
+            move[0] = (velocityX < 0) ? -1 : 1;
         } else {
-            dir[1] = (velocityY < 0) ? 1 : -1;
+            move[1] = (velocityY < 0) ? 1 : -1;
+        }
+        int dir;
+        if (move[0] > 0) {
+            dir = 3;
+        } else if (move[0] < 0) {
+            dir = 2;
+        } else if (move[1] > 0) {
+            dir = 1;
+        } else {
+            dir = 0;
         }
         checkMove(dir, cell);
     }
 
-    private void checkMove(int[] dir, Cell cell) {
-        if (cell.isFull()) {
-            removeBridges(cell.getGridX(), cell.getGridY());
-            cell.resetConnections();
+    private void checkMove(int dir, Cell cell) {
+        if (cell.isFull() || cell.directionFull(dir)) {
+            removeBridge(cell.getGridX(), cell.getGridY(), dir);
+            cell.resetConnection(dir);
             return;
         }
         int x = cell.getGridX();
         int y = cell.getGridY();
-        int dx = (dir[0] < 0) ? -1 : (dir[0] > 0) ? 1 : 0;
-        int dy = (dir[1] < 0) ? -1 : (dir[1] > 0) ? 1 : 0;
+        int dx = (dir == 2) ? -1 : (dir == 3) ? 1 : 0;
+        int dy = (dir == 0) ? -1 : (dir == 1) ? 1 : 0;
 
-        Cell foundCell;
         List<Cell> coveredCells = new ArrayList<Cell>();
-        boolean searching = true;
-        while (!isOutOfBounds(x + dx, y + dy) && searching) {
-            x += dx;
-            y += dy;
-            foundCell = getCell(x, y);
-            if (foundCell.isNode() && !foundCell.isFull()) {
-                searching = false;
-                foundCell.toggleSelected();
-                if (dy > 0) {
-                    cell.addConnection(0);
-                    foundCell.addConnection(1);
-                } else if (dy < 0) {
-                    cell.addConnection(1);
-                    foundCell.addConnection(0);
-                } else if (dx < 0) {
-                    cell.addConnection(2);
-                    foundCell.addConnection(3);
-                } else {
-                    cell.addConnection(3);
-                    foundCell.addConnection(2);
-                }
-                for (Cell coveredCell : coveredCells) {
-                    // Set twine orientation (vertical or horizontal)
-                    if (dx == 0) {
-                        coveredCell.setTwine(0);
-                    } else {
-                        coveredCell.setTwine(1);
+        while (!isOutOfBounds(x + dx, y + dy)) {
+            Cell foundCell = getCell(x + dx, y + dy);
+            if (foundCell.isNode()) {
+                if (!foundCell.isFull() && !foundCell.directionFull(getOppositeDirection(dir))) {
+                    cell.addConnection(dir);
+                    foundCell.addConnection(getOppositeDirection(dir));
+                    for (Cell coveredCell : coveredCells) {
+                        // Set bridge orientation (vertical or horizontal)
+                        if (dx == 0) {
+                            coveredCell.setTwine(0);
+                        } else {
+                            coveredCell.setTwine(1);
+                        }
                     }
                 }
-            } else if (foundCell.isTwine()) {
+                return;
+            } else if (foundCell.isTwine() && (!(foundCell.getCreatedDirection() == dir || foundCell.getCreatedDirection() == getOppositeDirection(dir)))) {
                 return;
             } else {
                 coveredCells.add(foundCell);
             }
+            dx = (dx < 0) ? dx - 1 : (dx > 0) ? dx + 1 : 0;
+            dy = (dy < 0) ? dy - 1 : (dy > 0) ? dy + 1 : 0;
         }
+    }
+
+    private int getOppositeDirection(int dir) {
+        int oppositeDirection;
+        if (dir == 0) {
+            oppositeDirection = 1;
+        } else if (dir == 1) {
+            oppositeDirection = 0;
+        } else if (dir == 2) {
+            oppositeDirection = 3;
+        } else {
+            oppositeDirection = 2;
+        }
+        return oppositeDirection;
     }
 
     private Cell getCell(int x, int y) {
@@ -104,42 +114,28 @@ public class Grid {
         return cells[y][x];
     }
 
-    private void removeBridges(int x, int y) {
-        for (int dx = 1; !isOutOfBounds(x - dx, y); dx++) {
-            Cell left = getCell(x - dx, y);
-            if (left.isNode()) {
-                left.removeConnection(3);
-                break;
-            } else if (left.isTwine()) {
-                left.removeTwine();
-            }
+    private void removeBridge(int x, int y, int dir) {
+        int dx = 0;
+        int dy = 0;
+        if (dir == 0) {
+            dy--;
+        } else if (dir == 1) {
+            dy++;
+        } else if (dir == 2) {
+            dx--;
+        } else {
+            dx++;
         }
-        for (int dx = 1; !isOutOfBounds(x + dx, y); dx++) {
-            Cell right = getCell(x + dx, y);
-            if (right.isNode()) {
-                right.removeConnection(2);
-                break;
-            } else if (right.isTwine()) {
-                right.removeTwine();
+        while (!isOutOfBounds(x + dx, y + dy)) {
+            Cell found = getCell(x + dx, y + dy);
+            if (found.isNode()) {
+                found.removeConnection(getOppositeDirection(dir));
+                return;
+            } else if (found.isTwine()) {
+                found.removeTwine();
             }
-        }
-        for (int dy = 1; !isOutOfBounds(x, y - dy); dy++) {
-            Cell up = getCell(x, y - dy);
-            if (up.isNode()) {
-                up.removeConnection(1);
-                break;
-            } else if (up.isTwine()) {
-                up.removeTwine();
-            }
-        }
-        for (int dy = 1; !isOutOfBounds(x, y + dy); dy++) {
-            Cell down = getCell(x, y + dy);
-            if (down.isNode()) {
-                down.removeConnection(0);
-                break;
-            } else if (down.isTwine()) {
-                down.removeTwine();
-            }
+            dx = (dx < 0) ? dx - 1 : (dx > 0) ? dx + 1 : 0;
+            dy = (dy < 0) ? dy - 1 : (dy > 0) ? dy + 1 : 0;
         }
     }
 

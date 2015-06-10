@@ -8,9 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * GAME STAGE
  * Stage holding all actors for the game as well as navigation bars.
@@ -40,7 +37,7 @@ public class GameStage extends Stage {
 
         // Main game board
         Table gameBoard = new Table();
-        gameBoard.setBackground(ResourceManager.boardBG);
+        gameBoard.setBackground(ResourceManager.skewedBoardBG);
 
         Table gridTable = buildBoard(9, 9);
         gameBoard.add(gridTable).center();
@@ -66,7 +63,7 @@ public class GameStage extends Stage {
             for (int x = 0; x < columns; x++) {
                 Cell cell = new Cell(x, y, grid);
                 cells[y][x] = cell;
-                gridTable.add(cell).width(52).height(52);
+                gridTable.add(cell).width(48).height(64);
             }
             gridTable.row();
         }

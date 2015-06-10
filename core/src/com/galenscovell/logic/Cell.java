@@ -8,8 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
-import java.util.Random;
-
 /**
  * CELL
  * Each cell is an Actor with its own inputlistener, state, texture and connections.
@@ -20,7 +18,7 @@ import java.util.Random;
 public class Cell extends Actor {
     private Grid grid;
     private int gridX, gridY;
-    private int maxConnections;
+    private int maxConnections, totalConnections, createdDirection;
     private int[] connections;
     private boolean selected, active, node, twine;
     private TextureRegion texture;
@@ -30,6 +28,7 @@ public class Cell extends Actor {
         this.gridX = x;
         this.gridY = y;
         this.connections = new int[4];
+        this.totalConnections = 0;
         this.texture = new TextureRegion(ResourceManager.atlas.findRegion("empty"));
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -65,39 +64,43 @@ public class Cell extends Actor {
     }
 
     public void addConnection(int dir) {
-        if (sumConnections() < maxConnections) {
-            if (connections[dir] == 2) {
-                connections[dir] = 0;
+        if (!isFull()) {
+            if (directionFull(dir)) {
+                resetConnection(dir);
             } else {
                 connections[dir]++;
+                totalConnections++;
             }
         }
+        System.out.println("Node: " + maxConnections + ", " + totalConnections);
     }
 
     public void removeConnection(int dir) {
         connections[dir]--;
+        totalConnections--;
     }
 
-    public void resetConnections() {
-        this.connections = new int[4];
+    public void resetConnection(int dir) {
+        totalConnections -= connections[dir];
+        connections[dir] = 0;
+    }
+
+    public boolean directionFull(int dir) {
+        return connections[dir] == 2;
     }
 
     public boolean isFull() {
-        return sumConnections() == maxConnections;
+        return totalConnections == maxConnections;
     }
 
-    private int sumConnections() {
-        int sum = 0;
-        for (int val : connections) {
-            sum += val;
-        }
-        return sum;
+    private int totalConnections() {
+        return totalConnections;
     }
 
     public void setNode(int maxConnections) {
         this.node = true;
         this.maxConnections = maxConnections;
-        texture = new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections));
+        this.texture = new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections));
     }
 
     public boolean isNode() {
@@ -105,14 +108,27 @@ public class Cell extends Actor {
     }
 
     public void setTwine(int dir) {
-        this.twine = true;
-        // Random random = new Random();
-        // int color = random.nextInt(8);
         if (dir == 0) {
-            this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_red_v"));
+            if (isTwine()) {
+                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_double_v"));
+            } else {
+                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_v"));
+                this.twine = true;
+                this.createdDirection = dir;
+            }
         } else {
-            this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_red_h"));
+            if (isTwine()) {
+                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_double_h"));
+            } else {
+                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_h"));
+                this.twine = true;
+                this.createdDirection = dir;
+            }
         }
+    }
+
+    public int getCreatedDirection() {
+        return createdDirection;
     }
 
     public void removeTwine() {
@@ -134,12 +150,12 @@ public class Cell extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (isNode() && sumConnections() == maxConnections) {
-            batch.setColor(0.2f, 0.6f, 0.2f, 1);
-            batch.draw(texture, getX(), getY(), 52, 52);
+        if (isNode() && isFull()) {
+            batch.setColor(0.5f, 0.5f, 0.5f, 1);
+            batch.draw(texture, getX(), getY(), 48, 64);
             batch.setColor(1, 1, 1, 1);
         } else {
-            batch.draw(texture, getX(), getY(), 52, 52);
+            batch.draw(texture, getX(), getY(), 48, 64);
         }
     }
 }

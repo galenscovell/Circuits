@@ -4,6 +4,7 @@ import com.galenscovell.twine.TwineMain;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 
 /**
  * GAME SCREEN
@@ -16,6 +17,7 @@ public class GameScreen extends AbstractScreen {
 
     public GameScreen(TwineMain root) {
         super(root);
+//        GLProfiler.enable();
     }
 
     protected void create() {
@@ -28,5 +30,8 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
+//        System.out.println("Calls: " + GLProfiler.drawCalls + ", Bindings: " + GLProfiler.textureBindings);
+//        System.out.println("Draw Calls: " + GLProfiler.drawCalls);
+//        GLProfiler.reset();
     }
 }

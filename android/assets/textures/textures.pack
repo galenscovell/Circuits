@@ -3,94 +3,185 @@ textures.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+TwineBGskewed
+  rotate: false
+  xy: 1, 54
+  size: 576, 960
+  orig: 576, 960
+  offset: 0, 0
+  index: -1
 board
   rotate: false
-  xy: 1, 211
+  xy: 579, 714
   size: 180, 300
   split: 1, 2, 0, 0
   orig: 180, 300
   offset: 0, 0
   index: -1
+node1s
+  rotate: false
+  xy: 579, 584
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+node2s
+  rotate: false
+  xy: 761, 886
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+node3s
+  rotate: false
+  xy: 579, 454
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+node4s
+  rotate: false
+  xy: 761, 756
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+node5s
+  rotate: false
+  xy: 859, 886
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+node6s
+  rotate: false
+  xy: 579, 324
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+node7s
+  rotate: false
+  xy: 859, 756
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+node8s
+  rotate: false
+  xy: 579, 194
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
 node1
   rotate: false
-  xy: 1, 113
+  xy: 579, 96
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 node2
   rotate: false
-  xy: 183, 415
+  xy: 677, 616
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 node3
   rotate: false
-  xy: 1, 15
+  xy: 677, 518
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 node4
   rotate: false
-  xy: 183, 317
+  xy: 677, 420
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 node5
   rotate: false
-  xy: 281, 415
+  xy: 677, 322
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 node6
   rotate: false
-  xy: 183, 219
+  xy: 677, 224
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 node7
   rotate: false
-  xy: 281, 317
+  xy: 677, 126
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 node8
   rotate: false
-  xy: 379, 415
+  xy: 775, 658
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
+twine_double_h
+  rotate: false
+  xy: 957, 934
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+twine_double_v
+  rotate: false
+  xy: 775, 576
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+twine_h
+  rotate: false
+  xy: 873, 674
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
+twine_v
+  rotate: false
+  xy: 957, 852
+  size: 64, 80
+  orig: 64, 80
+  offset: 0, 0
+  index: -1
 twine_red_h
   rotate: false
-  xy: 99, 145
+  xy: 775, 510
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 twine_red_v
   rotate: false
-  xy: 281, 251
+  xy: 957, 786
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 empty
   rotate: false
-  xy: 379, 362
+  xy: 1, 1
   size: 51, 51
   orig: 51, 51
   offset: 0, 0
   index: -1
 hudbar
   rotate: false
-  xy: 1, 1
+  xy: 761, 742
   size: 12, 12
   split: 0, 0, 3, 2
   orig: 12, 12
