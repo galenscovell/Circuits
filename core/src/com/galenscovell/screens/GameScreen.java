@@ -15,13 +15,14 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
 
 public class GameScreen extends AbstractScreen {
 
-    public GameScreen(TwineMain root) {
+    public GameScreen(TwineMain root, String difficulty, int levelNumber) {
         super(root);
+        create(difficulty, levelNumber);
 //        GLProfiler.enable();
     }
 
-    protected void create() {
-        this.stage = new GameStage();
+    protected void create(String difficulty, int levelNumber) {
+        this.stage = new GameStage(root.spriteBatch, difficulty, levelNumber);
     }
 
     @Override
@@ -33,5 +34,10 @@ public class GameScreen extends AbstractScreen {
 //        System.out.println("Calls: " + GLProfiler.drawCalls + ", Bindings: " + GLProfiler.textureBindings);
 //        System.out.println("Draw Calls: " + GLProfiler.drawCalls);
 //        GLProfiler.reset();
+    }
+
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
     }
 }

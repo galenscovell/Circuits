@@ -27,7 +27,7 @@ public class LoadingScreen extends AbstractScreen {
     }
 
     protected void create() {
-        this.stage = new Stage(new FitViewport(480, 800));
+        this.stage = new Stage(new FitViewport(480, 800), root.spriteBatch);
 
         Table splashMain = new Table();
         splashMain.setFillParent(true);

@@ -37,7 +37,7 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     protected void create() {
-        this.stage = new Stage(new FitViewport(480, 800));
+        this.stage = new Stage(new FitViewport(480, 800), root.spriteBatch);
 
         // Overall root table
         Table mainTable = new Table();
@@ -59,7 +59,7 @@ public class MainMenuScreen extends AbstractScreen {
         TextButton newGameButton = new TextButton("New Game", ResourceManager.mainButtonStyle);
         newGameButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.25f), toGameScreen));
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.25f), toLevelSelectScreen));
             }
         });
         TextButton optionsButton = new TextButton("Options", ResourceManager.mainButtonStyle);
@@ -91,6 +91,7 @@ public class MainMenuScreen extends AbstractScreen {
         endTable.add(detailLabel).expand().fill().bottom().center();
         mainTable.add(endTable).width(300).height(60).expand().fill().center();
 
+
         stage.addActor(mainTable);
 
         this.tweenManager = new TweenManager();
@@ -118,9 +119,9 @@ public class MainMenuScreen extends AbstractScreen {
         tweenManager.update(delta);
     }
 
-    Action toGameScreen = new Action() {
+    Action toLevelSelectScreen = new Action() {
         public boolean act(float delta) {
-            root.newGame();
+            root.setScreen(root.levelSelectScreen);
             return true;
         }
     };

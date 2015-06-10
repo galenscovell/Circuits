@@ -4,6 +4,7 @@ import com.galenscovell.logic.Cell;
 import com.galenscovell.logic.Grid;
 import com.galenscovell.util.ResourceManager;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -18,10 +19,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class GameStage extends Stage {
     private Grid grid;
 
-    public GameStage() {
-        super(new FitViewport(480, 800));
+    public GameStage(SpriteBatch spriteBatch, String difficulty, int levelNumber) {
+        super(new FitViewport(480, 800), spriteBatch);
         create();
-        grid.loadLevel();
+        grid.loadLevel(difficulty, levelNumber);
     }
 
     private void create() {

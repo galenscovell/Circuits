@@ -20,10 +20,10 @@ public class Grid {
         this.cells = cells;
     }
 
-    public void loadLevel() {
+    public void loadLevel(String difficulty, int levelNumber) {
         // Parse new level layout and dole out values to grid cells
         LevelParser parser = new LevelParser();
-        int[][] values = parser.parseLevel("very_easy", 1);
+        int[][] values = parser.parseLevel(difficulty, levelNumber);
 
         for (Cell[] row : cells) {
             for (Cell cell : row) {
