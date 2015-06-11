@@ -35,7 +35,7 @@ public class TwineMain extends Game {
         setScreen(loadingScreen);
     }
 
-    public void newGame(String difficulty, int levelNumber) {
+    public void newGame(int difficulty, int levelNumber) {
         this.gameScreen = new GameScreen(this, difficulty, levelNumber);
         setScreen(gameScreen);
     }

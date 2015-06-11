@@ -33,6 +33,7 @@ public class ResourceManager {
     public static NinePatchDrawable boardBG;
     public static TextureRegionDrawable skewedBoardBG;
     public static TextButton.TextButtonStyle mainButtonStyle;
+    public static TextButton.TextButtonStyle levelButtonStyle;
 
     public static void create() {
         assetManager = new AssetManager();
@@ -74,6 +75,7 @@ public class ResourceManager {
         skewedBoardBG = new TextureRegionDrawable(new TextureRegion(ResourceManager.atlas.findRegion("TwineBGskewed")));
 
         mainButtonStyle = new TextButton.TextButtonStyle(hudbarBG, hudbarBG, hudbarBG, assetManager.get("mediumFont.ttf", BitmapFont.class));
+        levelButtonStyle = new TextButton.TextButtonStyle(hudbarBG, hudbarBG, hudbarBG, assetManager.get("smallFont.ttf", BitmapFont.class));
     }
 
     public static void dispose() {

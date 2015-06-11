@@ -4,9 +4,9 @@ import com.galenscovell.tween.ActorAccessor;
 import com.galenscovell.twine.TwineMain;
 import com.galenscovell.util.ResourceManager;
 
+import aurelienribon.tweenengine.equations.Bounce;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
-import aurelienribon.tweenengine.equations.Bounce;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;

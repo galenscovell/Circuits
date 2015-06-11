@@ -2,9 +2,16 @@ package com.galenscovell.screens;
 
 import com.galenscovell.logic.Cell;
 import com.galenscovell.logic.Grid;
+import com.galenscovell.tween.ActorAccessor;
 import com.galenscovell.util.ResourceManager;
 
+import aurelienribon.tweenengine.equations.Bounce;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenManager;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -19,13 +26,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class GameStage extends Stage {
     private Grid grid;
 
-    public GameStage(SpriteBatch spriteBatch, String difficulty, int levelNumber) {
+    public GameStage(SpriteBatch spriteBatch, TweenManager tweenManager, int difficulty, int levelNumber) {
         super(new FitViewport(480, 800), spriteBatch);
-        create();
+        create(tweenManager);
         grid.loadLevel(difficulty, levelNumber);
     }
 
-    private void create() {
+    private void create(TweenManager tweenManager) {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
@@ -53,6 +60,16 @@ public class GameStage extends Stage {
         mainTable.row();
 
         this.addActor(mainTable);
+
+        Tween.registerAccessor(Actor.class, new ActorAccessor());
+        Tween.from(mainTable, ActorAccessor.ALPHA, 1.0f)
+                .target(0)
+                .start(tweenManager);
+        Tween.from(gridTable, ActorAccessor.POS_Y, 1.0f)
+                .target(200)
+                .ease(Bounce.OUT)
+                .start(tweenManager);
+        tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
     private Table buildBoard(int rows, int columns) {

@@ -4,9 +4,9 @@ import com.galenscovell.tween.ActorAccessor;
 import com.galenscovell.util.ResourceManager;
 import com.galenscovell.twine.TwineMain;
 
+import aurelienribon.tweenengine.equations.Bounce;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
-import aurelienribon.tweenengine.equations.Bounce;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -54,41 +55,27 @@ public class LevelSelectScreen extends AbstractScreen {
         mainTable.row();
 
 
-        // Center table
+        // Center table (scrollable)
+        Table scrollTable = new Table();
+        loadLevels(scrollTable);
+        ScrollPane scroller = new ScrollPane(scrollTable);
+        scroller.setFlingTime(0.5f);
+        scroller.setFlickScroll(true);
+        mainTable.add(scroller).height(500).expand().fill();
+        mainTable.row();
+
+
+        // bottom table
         Table buttonTable = new Table();
-        TextButton easyButton = new TextButton("Easy", ResourceManager.mainButtonStyle);
-        easyButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-
-            }
-        });
-        TextButton mediumButton = new TextButton("Moderate", ResourceManager.mainButtonStyle);
-        mediumButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-
-            }
-        });
-        TextButton hardButton = new TextButton("Hard", ResourceManager.mainButtonStyle);
-        hardButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-
-            }
-        });
         TextButton returnButton = new TextButton("Return", ResourceManager.mainButtonStyle);
         returnButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.25f), toMainMenuScreen));
             }
         });
-        buttonTable.add(easyButton).width(260).height(80).expand().fill().center();
-        buttonTable.row();
-        buttonTable.add(mediumButton).width(260).height(80).expand().fill().center();
-        buttonTable.row();
-        buttonTable.add(hardButton).width(260).height(80).expand().fill().center();
-        buttonTable.row();
         buttonTable.add(returnButton).width(260).height(80).expand().fill().center();
 
-        mainTable.add(buttonTable).width(300).height(400).expand().fill().center();
+        mainTable.add(buttonTable).width(300).height(100).expand().fill().center();
         mainTable.row();
 
         stage.addActor(mainTable);
@@ -107,6 +94,23 @@ public class LevelSelectScreen extends AbstractScreen {
                 .target(0)
                 .start(tweenManager);
         tweenManager.update(Gdx.graphics.getDeltaTime());
+    }
+
+    private void loadLevels(Table container) {
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 10; x++) {
+                TextButton levelButton = new TextButton("Difficulty: " + y + "\n#" + x, ResourceManager.levelButtonStyle);
+                final int row = y;
+                final int column = x;
+                levelButton.addListener(new ClickListener() {
+                    public void clicked(InputEvent e, float x, float y) {
+                        root.newGame(row, column);
+                    }
+                });
+                container.add(levelButton).width(120).height(90).pad(5);
+            }
+            container.row();
+        }
     }
 
     @Override

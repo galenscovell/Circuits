@@ -2,6 +2,8 @@ package com.galenscovell.screens;
 
 import com.galenscovell.twine.TwineMain;
 
+import aurelienribon.tweenengine.TweenManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
@@ -14,23 +16,26 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
  */
 
 public class GameScreen extends AbstractScreen {
+    private TweenManager tweenManager;
 
-    public GameScreen(TwineMain root, String difficulty, int levelNumber) {
+    public GameScreen(TwineMain root, int difficulty, int levelNumber) {
         super(root);
         create(difficulty, levelNumber);
 //        GLProfiler.enable();
     }
 
-    protected void create(String difficulty, int levelNumber) {
-        this.stage = new GameStage(root.spriteBatch, difficulty, levelNumber);
+    protected void create(int difficulty, int levelNumber) {
+        this.tweenManager = new TweenManager();
+        this.stage = new GameStage(root.spriteBatch, tweenManager, difficulty, levelNumber);
     }
 
     @Override
     public void render(float delta) {
-        stage.act(delta);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act(delta);
         stage.draw();
+        tweenManager.update(delta);
 //        System.out.println("Calls: " + GLProfiler.drawCalls + ", Bindings: " + GLProfiler.textureBindings);
 //        System.out.println("Draw Calls: " + GLProfiler.drawCalls);
 //        GLProfiler.reset();
