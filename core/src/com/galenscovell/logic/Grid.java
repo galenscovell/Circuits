@@ -24,15 +24,11 @@ public class Grid {
         // Parse new level layout and dole out values to grid cells
         String difficulty;
         if (diff == 0) {
-            difficulty = "very_easy";
-        } else if (diff == 1) {
             difficulty = "easy";
-        } else if (diff == 2) {
-            difficulty = "moderate";
-        } else if (diff == 3) {
-            difficulty = "hard";
+        } else if (diff == 1) {
+            difficulty = "medium";
         } else {
-            difficulty = "very_hard";
+            difficulty = "hard";
         }
         LevelParser parser = new LevelParser();
         int[][] values = parser.parseLevel(difficulty, levelNumber);

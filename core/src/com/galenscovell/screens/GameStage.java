@@ -66,7 +66,7 @@ public class GameStage extends Stage {
                 .target(0)
                 .start(tweenManager);
         Tween.from(gridTable, ActorAccessor.POS_Y, 1.0f)
-                .target(200)
+                .target(100)
                 .ease(Bounce.OUT)
                 .start(tweenManager);
         tweenManager.update(Gdx.graphics.getDeltaTime());

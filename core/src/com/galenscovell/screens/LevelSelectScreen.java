@@ -56,12 +56,38 @@ public class LevelSelectScreen extends AbstractScreen {
 
 
         // Center table (scrollable)
-        Table scrollTable = new Table();
-        loadLevels(scrollTable);
+        final Table scrollTable = new Table();
         ScrollPane scroller = new ScrollPane(scrollTable);
         scroller.setFlingTime(0.5f);
         scroller.setFlickScroll(true);
-        mainTable.add(scroller).height(500).expand().fill();
+
+        // Difficulty select buttons
+        Table difficultyTable = new Table();
+        TextButton easyButton = new TextButton("Easy", ResourceManager.mainButtonStyle);
+        easyButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                changeDifficulty(scrollTable, 0);
+            }
+        });
+        TextButton mediumButton = new TextButton("Medium", ResourceManager.mainButtonStyle);
+        mediumButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                changeDifficulty(scrollTable, 1);
+            }
+        });
+        TextButton hardButton = new TextButton("Hard", ResourceManager.mainButtonStyle);
+        hardButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                changeDifficulty(scrollTable, 2);
+            }
+        });
+        difficultyTable.add(easyButton).width(140).height(60);
+        difficultyTable.add(mediumButton).width(140).height(60).padLeft(10).padRight(10);
+        difficultyTable.add(hardButton).width(140).height(60);
+        mainTable.add(difficultyTable).width(460).expand().fill();
+        mainTable.row();
+
+        mainTable.add(scroller).height(440).expand().fill();
         mainTable.row();
 
 
@@ -96,21 +122,22 @@ public class LevelSelectScreen extends AbstractScreen {
         tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
-    private void loadLevels(Table container) {
-        for (int y = 0; y < 5; y++) {
-            for (int x = 0; x < 10; x++) {
-                TextButton levelButton = new TextButton("Difficulty: " + y + "\n#" + x, ResourceManager.levelButtonStyle);
-                final int row = y;
-                final int column = x;
-                levelButton.addListener(new ClickListener() {
-                    public void clicked(InputEvent e, float x, float y) {
-                        root.newGame(row, column);
-                    }
-                });
-                container.add(levelButton).width(120).height(90).pad(5);
-            }
-            container.row();
+    private void changeDifficulty(Table container, int difficulty) {
+        container.clear();
+        DifficultyTable difficultyTable = new DifficultyTable(root, difficulty);
+        container.add(difficultyTable);
+        for (Actor actor : difficultyTable.getActors()) {
+            Tween.from(actor, ActorAccessor.POS_Y, 1.0f)
+                    .target(0)
+                    .delay(0.5f)
+                    .ease(Bounce.OUT)
+                    .start(tweenManager);
+            tweenManager.update(Gdx.graphics.getDeltaTime());
         }
+        Tween.from(difficultyTable, ActorAccessor.ALPHA, 2.0f)
+                .target(0)
+                .start(tweenManager);
+        tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
     @Override
