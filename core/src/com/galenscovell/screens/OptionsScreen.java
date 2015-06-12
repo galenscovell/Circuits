@@ -1,5 +1,6 @@
 package com.galenscovell.screens;
 
+import com.galenscovell.graphics.BackgroundAnimation;
 import com.galenscovell.tween.ActorAccessor;
 import com.galenscovell.twine.TwineMain;
 import com.galenscovell.util.ResourceManager;
@@ -31,6 +32,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class OptionsScreen extends AbstractScreen {
     private TweenManager tweenManager;
+    private BackgroundAnimation bgAnim;
 
     public OptionsScreen(TwineMain root) {
         super(root);
@@ -106,12 +108,17 @@ public class OptionsScreen extends AbstractScreen {
             .target(0)
             .start(tweenManager);
         tweenManager.update(Gdx.graphics.getDeltaTime());
+
+        this.bgAnim = new BackgroundAnimation();
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        root.spriteBatch.begin();
+        bgAnim.draw(root.spriteBatch);
+        root.spriteBatch.end();
         stage.act(delta);
         stage.draw();
         tweenManager.update(delta);
