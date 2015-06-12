@@ -29,9 +29,7 @@ public class ResourceManager {
     public static Label.LabelStyle titleLabelStyle;
     public static Label.LabelStyle buttonLabelStyle;
     public static Label.LabelStyle detailLabelStyle;
-    public static NinePatchDrawable hudbarBG;
-    public static NinePatchDrawable boardBG;
-    public static TextureRegionDrawable skewedBoardBG;
+    public static NinePatchDrawable barBG;
     public static TextButton.TextButtonStyle mainButtonStyle;
     public static TextButton.TextButtonStyle levelButtonStyle;
 
@@ -70,12 +68,10 @@ public class ResourceManager {
         buttonLabelStyle = new Label.LabelStyle(assetManager.get("mediumFont.ttf", BitmapFont.class), Color.WHITE);
         titleLabelStyle = new Label.LabelStyle(assetManager.get("largeFont.ttf", BitmapFont.class), Color.WHITE);
 
-        hudbarBG = new NinePatchDrawable(atlas.createPatch("hudbar"));
-        boardBG = new NinePatchDrawable(atlas.createPatch("board"));
-        skewedBoardBG = new TextureRegionDrawable(new TextureRegion(ResourceManager.atlas.findRegion("TwineBGskewed")));
+        barBG = new NinePatchDrawable(atlas.createPatch("bar"));
 
-        mainButtonStyle = new TextButton.TextButtonStyle(hudbarBG, hudbarBG, hudbarBG, assetManager.get("mediumFont.ttf", BitmapFont.class));
-        levelButtonStyle = new TextButton.TextButtonStyle(hudbarBG, hudbarBG, hudbarBG, assetManager.get("smallFont.ttf", BitmapFont.class));
+        mainButtonStyle = new TextButton.TextButtonStyle(barBG, barBG, barBG, assetManager.get("mediumFont.ttf", BitmapFont.class));
+        levelButtonStyle = new TextButton.TextButtonStyle(barBG, barBG, barBG, assetManager.get("smallFont.ttf", BitmapFont.class));
     }
 
     public static void dispose() {

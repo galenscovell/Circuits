@@ -3,215 +3,130 @@ textures.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-TwineBGskewed
-  rotate: false
-  xy: 1, 60
-  size: 576, 960
-  orig: 576, 960
-  offset: 0, 0
-  index: -1
 stripe_v_l
   rotate: false
-  xy: 579, 220
+  xy: 1, 1
   size: 1, 800
   orig: 1, 800
   offset: 0, 0
   index: -1
 stripe_v_r
   rotate: false
-  xy: 582, 220
+  xy: 4, 1
   size: 1, 800
   orig: 1, 800
   offset: 0, 0
   index: -1
 stripe_h_d
   rotate: false
-  xy: 1, 57
+  xy: 7, 800
   size: 480, 1
   orig: 480, 1
   offset: 0, 0
   index: -1
 stripe_h_u
   rotate: false
-  xy: 1, 54
+  xy: 7, 797
   size: 480, 1
   orig: 480, 1
   offset: 0, 0
   index: -1
-board
+bridge_double_h
   rotate: false
-  xy: 585, 720
-  size: 180, 300
-  split: 1, 2, 0, 0
-  orig: 180, 300
-  offset: 0, 0
-  index: -1
-node1s
-  rotate: false
-  xy: 585, 590
-  size: 96, 128
-  orig: 96, 128
-  offset: 0, 0
-  index: -1
-node2s
-  rotate: false
-  xy: 767, 892
-  size: 96, 128
-  orig: 96, 128
-  offset: 0, 0
-  index: -1
-node3s
-  rotate: false
-  xy: 585, 460
-  size: 96, 128
-  orig: 96, 128
-  offset: 0, 0
-  index: -1
-node4s
-  rotate: false
-  xy: 767, 762
-  size: 96, 128
-  orig: 96, 128
-  offset: 0, 0
-  index: -1
-node5s
-  rotate: false
-  xy: 865, 892
-  size: 96, 128
-  orig: 96, 128
-  offset: 0, 0
-  index: -1
-node6s
-  rotate: false
-  xy: 585, 330
-  size: 96, 128
-  orig: 96, 128
-  offset: 0, 0
-  index: -1
-node7s
-  rotate: false
-  xy: 865, 762
-  size: 96, 128
-  orig: 96, 128
-  offset: 0, 0
-  index: -1
-node8s
-  rotate: false
-  xy: 683, 590
-  size: 96, 128
-  orig: 96, 128
-  offset: 0, 0
-  index: -1
-node1
-  rotate: false
-  xy: 585, 232
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
-node2
-  rotate: false
-  xy: 683, 492
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
-node3
-  rotate: false
-  xy: 683, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
-node4
-  rotate: false
-  xy: 683, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
-node5
-  rotate: false
-  xy: 683, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
-node6
-  rotate: false
-  xy: 781, 664
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
-node7
-  rotate: false
-  xy: 781, 566
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
-node8
-  rotate: false
-  xy: 781, 468
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
-twine_double_h
-  rotate: false
-  xy: 879, 680
-  size: 64, 80
-  orig: 64, 80
-  offset: 0, 0
-  index: -1
-twine_double_v
-  rotate: false
-  xy: 781, 386
-  size: 64, 80
-  orig: 64, 80
-  offset: 0, 0
-  index: -1
-twine_h
-  rotate: false
-  xy: 879, 598
-  size: 64, 80
-  orig: 64, 80
-  offset: 0, 0
-  index: -1
-twine_v
-  rotate: false
-  xy: 781, 304
-  size: 64, 80
-  orig: 64, 80
-  offset: 0, 0
-  index: -1
-twine_red_h
-  rotate: false
-  xy: 879, 532
+  xy: 7, 731
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-twine_red_v
+bridge_double_v
   rotate: false
-  xy: 781, 238
+  xy: 7, 665
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+bridge_h
+  rotate: false
+  xy: 73, 731
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+bridge_v
+  rotate: false
+  xy: 7, 599
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 empty
   rotate: false
-  xy: 1, 1
+  xy: 73, 678
   size: 51, 51
   orig: 51, 51
   offset: 0, 0
   index: -1
-hudbar
+node1
   rotate: false
-  xy: 767, 748
-  size: 12, 12
-  split: 0, 0, 3, 2
-  orig: 12, 12
+  xy: 139, 747
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+node2
+  rotate: false
+  xy: 7, 549
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+node3
+  rotate: false
+  xy: 73, 628
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+node4
+  rotate: false
+  xy: 189, 747
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+node5
+  rotate: false
+  xy: 7, 499
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+node6
+  rotate: false
+  xy: 239, 747
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+node7
+  rotate: false
+  xy: 7, 449
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+node8
+  rotate: false
+  xy: 289, 747
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+bar
+  rotate: false
+  xy: 73, 602
+  size: 24, 24
+  split: 6, 6, 6, 9
+  orig: 24, 24
   offset: 0, 0
   index: -1

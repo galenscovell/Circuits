@@ -33,7 +33,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class LevelSelectScreen extends AbstractScreen {
     private TweenManager tweenManager;
-    private BackgroundAnimation bgAnim;
+    private BackgroundAnimation bgAnim1, bgAnim2;
 
     public LevelSelectScreen(TwineMain root) {
         super(root);
@@ -123,7 +123,8 @@ public class LevelSelectScreen extends AbstractScreen {
                 .start(tweenManager);
         tweenManager.update(Gdx.graphics.getDeltaTime());
 
-        this.bgAnim = new BackgroundAnimation();
+        this.bgAnim1 = new BackgroundAnimation(0);
+        this.bgAnim2 = new BackgroundAnimation(1);
     }
 
     private void changeDifficulty(Table container, int difficulty) {
@@ -137,7 +138,7 @@ public class LevelSelectScreen extends AbstractScreen {
                     .start(tweenManager);
             tweenManager.update(Gdx.graphics.getDeltaTime());
         }
-        Tween.from(difficultyTable, ActorAccessor.ALPHA, 2.0f)
+        Tween.from(difficultyTable, ActorAccessor.ALPHA, 1.5f)
                 .target(0)
                 .start(tweenManager);
         tweenManager.update(Gdx.graphics.getDeltaTime());
@@ -145,10 +146,18 @@ public class LevelSelectScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
+        if (bgAnim1.isOffScreen()) {
+            this.bgAnim1 = new BackgroundAnimation(0);
+        }
+        if (bgAnim2.isOffScreen()) {
+            this.bgAnim2 = new BackgroundAnimation(1);
+        }
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         root.spriteBatch.begin();
-        bgAnim.draw(root.spriteBatch);
+        bgAnim1.draw(root.spriteBatch);
+        bgAnim2.draw(root.spriteBatch);
         root.spriteBatch.end();
         stage.act(delta);
         stage.draw();

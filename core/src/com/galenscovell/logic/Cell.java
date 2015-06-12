@@ -1,5 +1,6 @@
 package com.galenscovell.logic;
 
+import com.badlogic.gdx.Gdx;
 import com.galenscovell.util.ResourceManager;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -88,7 +89,7 @@ public class Cell extends Actor {
     public void setNode(int maxConnections) {
         this.node = true;
         this.maxConnections = maxConnections;
-        this.texture = new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections + "s"));
+        this.texture = new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections));
     }
 
     public boolean isNode() {
@@ -98,17 +99,17 @@ public class Cell extends Actor {
     public void setTwine(int dir) {
         if (dir == 0 || dir == 1) {
             if (isTwine()) {
-                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_double_v"));
+                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("bridge_double_v"));
             } else {
-                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_v"));
+                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("bridge_v"));
                 this.twine = true;
                 this.createdDirection = dir;
             }
         } else {
             if (isTwine()) {
-                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_double_h"));
+                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("bridge_double_h"));
             } else {
-                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("twine_h"));
+                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("bridge_h"));
                 this.twine = true;
                 this.createdDirection = dir;
             }
@@ -140,10 +141,10 @@ public class Cell extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         if (isNode() && isFull()) {
             batch.setColor(0.5f, 0.5f, 0.5f, 1);
-            batch.draw(texture, getX(), getY(), 48, 64);
+            batch.draw(texture, getX(), getY(), 48, 48);
             batch.setColor(1, 1, 1, 1);
         } else {
-            batch.draw(texture, getX(), getY(), 48, 64);
+            batch.draw(texture, getX(), getY(), 48, 48);
         }
     }
 }

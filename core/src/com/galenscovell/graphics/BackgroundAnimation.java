@@ -19,33 +19,37 @@ public class BackgroundAnimation {
     private Sprite sprite;
     private int x, y, direction;
 
-    public BackgroundAnimation() {
+    public BackgroundAnimation(int type) {
         Random random = new Random();
-        int choice = random.nextInt(4);
-        if (choice == 0) {
-            this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_v_r")));
-            this.x = -100;
-            this.y = 0;
-            this.direction = 0;
-        } else if (choice == 1) {
-            this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_v_l")));
-            this.x = 500;
-            this.y = 0;
-            this.direction = 1;
-        } else if (choice == 2) {
-            this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_h_u")));
-            this.x = 0;
-            this.y = 820;
-            this.direction = 2;
-        } else {
-            this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_h_d")));
-            this.x = 0;
-            this.y = -100;
-            this.direction = 3;
+        int choice = random.nextInt(2);
+        if (type == 0) {
+            if (choice == 0) {
+                this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_v_r")));
+                this.x = -100;
+                this.y = 0;
+                this.direction = 0;
+            } else {
+                this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_v_l")));
+                this.x = 500;
+                this.y = 0;
+                this.direction = 1;
+            }
+        } else if (type == 1) {
+            if (choice == 0) {
+                this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_h_u")));
+                this.x = 0;
+                this.y = 820;
+                this.direction = 2;
+            } else {
+                this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_h_d")));
+                this.x = 0;
+                this.y = -100;
+                this.direction = 3;
+            }
         }
     }
 
-    public boolean isOffScreen(int direction) {
+    public boolean isOffScreen() {
         if (direction == 0) {
             return x > 500;
         } else if (direction == 1) {
@@ -59,25 +63,13 @@ public class BackgroundAnimation {
 
     public void animate(int direction) {
         if (direction == 0) {
-            x++;
-            if (isOffScreen(direction)) {
-                x = -100;
-            }
+            x += 2;
         } else if (direction == 1) {
-            x--;
-            if (isOffScreen(direction)) {
-                x = 500;
-            }
+            x -= 2;
         } else if (direction == 2) {
-            y--;
-            if (isOffScreen(direction)) {
-                y = 820;
-            }
+            y -= 2;
         } else {
-            y++;
-            if (isOffScreen(direction)) {
-                y = -100;
-            }
+            y += 2;
         }
     }
 

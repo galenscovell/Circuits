@@ -32,7 +32,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class MainMenuScreen extends AbstractScreen {
     private TweenManager tweenManager;
-    private BackgroundAnimation bgAnim;
+    private BackgroundAnimation bgAnim1, bgAnim2;
 
     public MainMenuScreen(TwineMain root) {
         super(root);
@@ -100,26 +100,35 @@ public class MainMenuScreen extends AbstractScreen {
         Tween.registerAccessor(Actor.class, new ActorAccessor());
 
         Tween.from(titleLabel, ActorAccessor.ALPHA, 0.5f)
-            .target(0)
-            .start(tweenManager);
+                .target(0)
+                .start(tweenManager);
         Tween.from(titleLabel, ActorAccessor.POS_Y, 0.75f)
-            .target(100)
-            .ease(Bounce.OUT)
-            .start(tweenManager);
+                .target(100)
+                .ease(Bounce.OUT)
+                .start(tweenManager);
         Tween.from(buttonTable, ActorAccessor.ALPHA, 0.5f)
-            .target(0)
-            .start(tweenManager);
+                .target(0)
+                .start(tweenManager);
         tweenManager.update(Gdx.graphics.getDeltaTime());
 
-        this.bgAnim = new BackgroundAnimation();
+        this.bgAnim1 = new BackgroundAnimation(0);
+        this.bgAnim2 = new BackgroundAnimation(1);
     }
 
     @Override
     public void render(float delta) {
+        if (bgAnim1.isOffScreen()) {
+            this.bgAnim1 = new BackgroundAnimation(0);
+        }
+        if (bgAnim2.isOffScreen()) {
+            this.bgAnim2 = new BackgroundAnimation(1);
+        }
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         root.spriteBatch.begin();
-        bgAnim.draw(root.spriteBatch);
+        bgAnim1.draw(root.spriteBatch);
+        bgAnim2.draw(root.spriteBatch);
         root.spriteBatch.end();
         stage.act(delta);
         stage.draw();
