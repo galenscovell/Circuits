@@ -1,9 +1,9 @@
 package com.galenscovell.logic;
 
-import com.badlogic.gdx.Gdx;
 import com.galenscovell.util.ResourceManager;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -21,8 +21,8 @@ public class Cell extends Actor {
     private int gridX, gridY;
     private int maxConnections, totalConnections, createdDirection;
     private int[] connections;
-    private boolean selected, active, node, twine;
-    private TextureRegion texture;
+    private boolean selected, active, node, bridge;
+    private Sprite texture;
 
     public Cell(int x, int y, Grid grid) {
         this.grid = grid;
@@ -30,20 +30,27 @@ public class Cell extends Actor {
         this.gridY = y;
         this.connections = new int[4];
         this.totalConnections = 0;
-        this.texture = new TextureRegion(ResourceManager.atlas.findRegion("empty"));
+        this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("empty")));
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (isNode()) {
-                    toggleSelected();
-                    toggleActive();
+                    selected = true;
+                    active = true;
+                }
+            }
+
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (isNode()) {
+                    selected = false;
+                    active = false;
                 }
             }
 
             public void fling(InputEvent event, float velocityX, float velocityY, int button) {
                 if (active) {
                     move(velocityX, velocityY);
-                    toggleSelected();
-                    toggleActive();
+                    selected = false;
+                    active = false;
                 }
             }
         });
@@ -89,28 +96,28 @@ public class Cell extends Actor {
     public void setNode(int maxConnections) {
         this.node = true;
         this.maxConnections = maxConnections;
-        this.texture = new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections));
+        this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections)));
     }
 
     public boolean isNode() {
         return node;
     }
 
-    public void setTwine(int dir) {
+    public void setBridge(int dir) {
         if (dir == 0 || dir == 1) {
-            if (isTwine()) {
-                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("bridge_double_v"));
+            if (isBridge()) {
+                this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("bridge_double_v")));
             } else {
-                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("bridge_v"));
-                this.twine = true;
+                this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("bridge_v")));
+                this.bridge = true;
                 this.createdDirection = dir;
             }
         } else {
-            if (isTwine()) {
-                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("bridge_double_h"));
+            if (isBridge()) {
+                this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("bridge_double_h")));
             } else {
-                this.texture = new TextureRegion(ResourceManager.atlas.findRegion("bridge_h"));
-                this.twine = true;
+                this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("bridge_h")));
+                this.bridge = true;
                 this.createdDirection = dir;
             }
         }
@@ -120,27 +127,23 @@ public class Cell extends Actor {
         return createdDirection;
     }
 
-    public void removeTwine() {
-        this.twine = false;
-        this.texture = new TextureRegion(ResourceManager.atlas.findRegion("empty"));
+    public void removeBridge() {
+        this.bridge = false;
+        this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("empty")));
     }
 
-    public boolean isTwine() {
-        return twine;
-    }
-
-    public void toggleSelected() {
-        this.selected = !selected;
-    }
-
-    public void toggleActive() {
-        this.active = !active;
+    public boolean isBridge() {
+        return bridge;
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (isNode() && isFull()) {
-            batch.setColor(0.5f, 0.5f, 0.5f, 1);
+        if (selected) {
+            batch.setColor(0.2f, 0.6f, 0.2f, 1);
+            batch.draw(texture, getX(), getY(), 48, 48);
+            batch.setColor(1, 1, 1, 1);
+        } else if (isNode() && isFull()) {
+            batch.setColor(0.4f, 0.4f, 0.4f, 1);
             batch.draw(texture, getX(), getY(), 48, 48);
             batch.setColor(1, 1, 1, 1);
         } else {

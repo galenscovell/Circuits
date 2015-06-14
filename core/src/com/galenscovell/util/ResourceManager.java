@@ -29,7 +29,8 @@ public class ResourceManager {
     public static Label.LabelStyle titleLabelStyle;
     public static Label.LabelStyle buttonLabelStyle;
     public static Label.LabelStyle detailLabelStyle;
-    public static NinePatchDrawable barBG;
+    public static NinePatchDrawable barUp;
+    public static NinePatchDrawable barDown;
     public static TextButton.TextButtonStyle mainButtonStyle;
     public static TextButton.TextButtonStyle levelButtonStyle;
 
@@ -46,17 +47,17 @@ public class ResourceManager {
         assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter smallParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        smallParams.fontFileName = "ui/kenpixel_blocks.ttf";
+        smallParams.fontFileName = "fonts/kenpixel_blocks.ttf";
         smallParams.fontParameters.size = 12;
         assetManager.load("smallFont.ttf", BitmapFont.class, smallParams);
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter mediumParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        mediumParams.fontFileName = "ui/kenpixel_blocks.ttf";
+        mediumParams.fontFileName = "fonts/kenpixel_blocks.ttf";
         mediumParams.fontParameters.size = 24;
         assetManager.load("mediumFont.ttf", BitmapFont.class, mediumParams);
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter largeParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        largeParams.fontFileName = "ui/kenpixel_blocks.ttf";
+        largeParams.fontFileName = "fonts/kenpixel_blocks.ttf";
         largeParams.fontParameters.size = 64;
         assetManager.load("largeFont.ttf", BitmapFont.class, largeParams);
     }
@@ -68,10 +69,11 @@ public class ResourceManager {
         buttonLabelStyle = new Label.LabelStyle(assetManager.get("mediumFont.ttf", BitmapFont.class), Color.WHITE);
         titleLabelStyle = new Label.LabelStyle(assetManager.get("largeFont.ttf", BitmapFont.class), Color.WHITE);
 
-        barBG = new NinePatchDrawable(atlas.createPatch("bar"));
+        barUp = new NinePatchDrawable(atlas.createPatch("bar"));
+        barDown = new NinePatchDrawable(atlas.createPatch("bardown"));
 
-        mainButtonStyle = new TextButton.TextButtonStyle(barBG, barBG, barBG, assetManager.get("mediumFont.ttf", BitmapFont.class));
-        levelButtonStyle = new TextButton.TextButtonStyle(barBG, barBG, barBG, assetManager.get("smallFont.ttf", BitmapFont.class));
+        mainButtonStyle = new TextButton.TextButtonStyle(barUp, barDown, barUp, assetManager.get("mediumFont.ttf", BitmapFont.class));
+        levelButtonStyle = new TextButton.TextButtonStyle(barUp, barDown, barUp, assetManager.get("smallFont.ttf", BitmapFont.class));
     }
 
     public static void dispose() {

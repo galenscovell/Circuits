@@ -26,7 +26,11 @@ public class GameScreen extends AbstractScreen {
 
     protected void create(int difficulty, int levelNumber) {
         this.tweenManager = new TweenManager();
-        this.stage = new GameStage(root.spriteBatch, tweenManager, difficulty, levelNumber);
+        this.stage = new GameStage(this, root.spriteBatch, tweenManager, difficulty, levelNumber);
+    }
+
+    public void returnToLevelSelect() {
+        root.setScreen(root.levelSelectScreen);
     }
 
     @Override

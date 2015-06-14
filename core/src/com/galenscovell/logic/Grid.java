@@ -84,12 +84,12 @@ public class Grid {
                     cell.addConnection(dir);
                     foundCell.addConnection(getOppositeDirection(dir));
                     for (Cell coveredCell : coveredCells) {
-                        coveredCell.setTwine(dir);
+                        coveredCell.setBridge(dir);
                     }
                 }
                 return;
             // If hit cell is bridge and not overlapping direction, exit
-            } else if (foundCell.isTwine() && !bridgeOverlap(foundCell, dir)) {
+            } else if (foundCell.isBridge() && !bridgeOverlap(foundCell, dir)) {
                 return;
             // Otherwise add cell to list for later iteration of bridge creation
             } else {
@@ -143,8 +143,8 @@ public class Grid {
             if (found.isNode()) {
                 found.resetConnection(getOppositeDirection(dir));
                 return;
-            } else if (found.isTwine()) {
-                found.removeTwine();
+            } else if (found.isBridge()) {
+                found.removeBridge();
             }
             dx = (dx < 0) ? dx - 1 : (dx > 0) ? dx + 1 : 0;
             dy = (dy < 0) ? dy - 1 : (dy > 0) ? dy + 1 : 0;

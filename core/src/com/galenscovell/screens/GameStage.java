@@ -12,6 +12,10 @@ import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -24,10 +28,12 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 
 public class GameStage extends Stage {
+    private GameScreen root;
     private Grid grid;
 
-    public GameStage(SpriteBatch spriteBatch, TweenManager tweenManager, int difficulty, int levelNumber) {
+    public GameStage(GameScreen root, SpriteBatch spriteBatch, TweenManager tweenManager, int difficulty, int levelNumber) {
         super(new FitViewport(480, 800), spriteBatch);
+        this.root = root;
         create(tweenManager);
         grid.loadLevel(difficulty, levelNumber);
     }
@@ -39,7 +45,8 @@ public class GameStage extends Stage {
 
         // Top bar
         Table topTable = new Table();
-        topTable.setBackground(ResourceManager.barBG);
+        topTable.setBackground(ResourceManager.barUp);
+        createImageButton(topTable, "barsHorizontal");
         mainTable.add(topTable).height(64).expand().fillX().top();
         mainTable.row();
 
@@ -48,14 +55,7 @@ public class GameStage extends Stage {
 
         Table gridTable = buildBoard(9, 9);
         gameBoard.add(gridTable).center();
-        mainTable.add(gameBoard).height(480).expand().fillX().center();
-        mainTable.row();
-
-
-        // Bottom bar
-        Table bottomTable = new Table();
-        bottomTable.setBackground(ResourceManager.barBG);
-        mainTable.add(bottomTable).height(64).expand().fillX().bottom();
+        mainTable.add(gameBoard).height(480).expand().fillX().center().padBottom(128);
         mainTable.row();
 
         this.addActor(mainTable);
@@ -88,5 +88,16 @@ public class GameStage extends Stage {
         return gridTable;
     }
 
+    private void createImageButton(Table table, String name) {
+        Table button = new Table();
+        button.setTouchable(Touchable.enabled);
+        button.setBackground(new TextureRegionDrawable(ResourceManager.atlas.findRegion(name)));
+        button.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                root.returnToLevelSelect();
+            }
+        });
+        table.add(button).width(48).height(48).expand().fill().left().padBottom(6);
+    }
 }
 
