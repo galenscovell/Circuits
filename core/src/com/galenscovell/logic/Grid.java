@@ -37,25 +37,25 @@ public class Grid {
             for (Cell cell : row) {
                 int gridX = cell.getGridX();
                 int gridY = cell.getGridY();
-                if (values[gridY][gridX] == 0) {
-                    continue;
+                if (values[gridY][gridX] != 0) {
+                    cell.setNode(values[gridY][gridX]);
                 }
-                cell.setNode(values[gridY][gridX]);
+                cell.setup();
             }
         }
     }
 
-    public void move(float velocityX, float velocityY, Cell cell) {
-        // Determine move direction based on fling velocities
+    public void move(float diffX, float diffY, Cell cell) {
+        // Determine move direction based on difference in original and released touch positions
         int dir;
-        if (Math.abs(velocityX) > Math.abs(velocityY)) {
-            if (velocityX < 0) {
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX < 0) {
                 dir = 2; // Left
             } else {
                 dir = 3; // Right
             }
         } else {
-            if (velocityY > 0) {
+            if (diffY > 0) {
                 dir = 0; // Up
             } else {
                 dir = 1; // Down

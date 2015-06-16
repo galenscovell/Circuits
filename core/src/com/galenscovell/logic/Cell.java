@@ -4,14 +4,14 @@ import com.galenscovell.util.ResourceManager;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
 /**
  * CELL
- * Each cell is an Actor with its own inputlistener, state, texture and connections.
+ * Each cell is an Actor with its own inputlistener, state, sprite and connections.
+ * Each cell can be either a 'node' or 'empty' (with possibility to become a bridge).
  *
  * @author Galen Scovell
  */
@@ -19,42 +19,58 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 public class Cell extends Actor {
     private Grid grid;
     private int gridX, gridY;
-    private int maxConnections, totalConnections, createdDirection;
+    private Sprite currentSprite;
+    private Sprite[] sprites;
+    private boolean node, bridge;
+
+    // Node specific
+    private int maxConnections, totalConnections;
     private int[] connections;
-    private boolean selected, active, node, bridge;
-    private Sprite texture;
-    private Sprite baseSprite, singleSprite, doubleSprite;
+    private boolean selected, active;
+    private float touchedX, touchedY;
+
+    // Bridge specific
+    private int createdDirection;
+
 
     public Cell(int x, int y, Grid grid) {
         this.grid = grid;
         this.gridX = x;
         this.gridY = y;
-        this.connections = new int[4];
-        this.totalConnections = 0;
-        this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("empty")));
-        this.addListener(new ActorGestureListener() {
-            public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (isNode()) {
+    }
+
+    public void setup() {
+        if (isNode()) {
+            this.connections = new int[4];
+            this.totalConnections = 0;
+            this.sprites = new Sprite[3];
+            this.addListener(new ActorGestureListener() {
+                public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     selected = true;
                     active = true;
+                    touchedX = x;
+                    touchedY = y;
                 }
-            }
 
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (isNode()) {
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    move(x - touchedX, y - touchedY);
                     selected = false;
                     active = false;
                 }
-            }
-
-            public void fling(InputEvent event, float velocityX, float velocityY, int button) {
-                if (active) {
-                    move(velocityX, velocityY);
-                    selected = false;
-                    active = false;
-                }
-            }
-        });
+            });
+            sprites[0] = new Sprite(ResourceManager.atlas.findRegion("node" + maxConnections + "_empty"));
+            sprites[1] = new Sprite(ResourceManager.atlas.findRegion("node" + maxConnections + "_single"));
+            sprites[2] = new Sprite(ResourceManager.atlas.findRegion("node" + maxConnections + "_double"));
+            this.currentSprite = sprites[0];
+        } else {
+            this.sprites = new Sprite[5];
+            sprites[0] = new Sprite(ResourceManager.atlas.findRegion("empty"));
+            sprites[1] = new Sprite(ResourceManager.atlas.findRegion("bridge_v"));
+            sprites[2] = new Sprite(ResourceManager.atlas.findRegion("bridge_h"));
+            sprites[3] = new Sprite(ResourceManager.atlas.findRegion("bridge_double_v"));
+            sprites[4] = new Sprite(ResourceManager.atlas.findRegion("bridge_double_h"));
+            this.currentSprite = sprites[0];
+        }
     }
 
     public void move(float dx, float dy) {
@@ -80,9 +96,9 @@ public class Cell extends Actor {
             totalConnections++;
             if (dir == 1) {
                 if (connections[dir] == 1) {
-                    this.texture = singleSprite;
+                    this.currentSprite = sprites[1];
                 } else {
-                    this.texture = doubleSprite;
+                    this.currentSprite = sprites[2];
                 }
             }
         }
@@ -92,7 +108,7 @@ public class Cell extends Actor {
         totalConnections -= connections[dir];
         connections[dir] = 0;
         if (dir == 1) {
-            this.texture = baseSprite;
+            this.currentSprite = sprites[0];
         }
     }
 
@@ -107,10 +123,6 @@ public class Cell extends Actor {
     public void setNode(int maxConnections) {
         this.node = true;
         this.maxConnections = maxConnections;
-        this.baseSprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections + "_empty")));
-        this.singleSprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections + "_single")));
-        this.doubleSprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections + "_double")));
-        this.texture = baseSprite;
     }
 
     public boolean isNode() {
@@ -120,17 +132,17 @@ public class Cell extends Actor {
     public void setBridge(int dir) {
         if (dir == 0 || dir == 1) {
             if (isBridge()) {
-                this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("bridge_double_v")));
+                this.currentSprite = sprites[3];
             } else {
-                this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("bridge_v")));
+                this.currentSprite = sprites[1];
                 this.bridge = true;
                 this.createdDirection = dir;
             }
         } else {
             if (isBridge()) {
-                this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("bridge_double_h")));
+                this.currentSprite = sprites[4];
             } else {
-                this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("bridge_h")));
+                this.currentSprite = sprites[2];
                 this.bridge = true;
                 this.createdDirection = dir;
             }
@@ -143,7 +155,7 @@ public class Cell extends Actor {
 
     public void removeBridge() {
         this.bridge = false;
-        this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("empty")));
+        this.currentSprite = sprites[0];
     }
 
     public boolean isBridge() {
@@ -157,6 +169,6 @@ public class Cell extends Actor {
         } else if (isNode() && isFull()) {
             // TODO: Some sort of notice for player that node is full
         }
-        batch.draw(texture, getX(), getY(), 48, 48);
+        batch.draw(currentSprite, getX(), getY(), 48, 48);
     }
 }
