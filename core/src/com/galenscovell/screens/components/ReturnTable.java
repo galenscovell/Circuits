@@ -25,15 +25,23 @@ public class ReturnTable extends Table {
     }
 
     private void create() {
-        Table returnButton = root.createButton(this, "return");
+        this.setBackground(ResourceManager.barUp);
+        Table returnButton = root.createButton(this, "exitLeft");
         returnButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 root.returnOperation();
             }
         });
-        this.add(returnButton).width(50).height(50).expand().fill().left();
         Label returnLabel = new Label("Return to level select?", ResourceManager.buttonLabelStyle);
         returnLabel.setAlignment(Align.center);
+        Table closeButton = root.createButton(this, "cross");
+        closeButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                root.bottomTableOperation(2);
+            }
+        });
+        this.add(returnButton).width(50).height(50).expand().fill().left();
         this.add(returnLabel).expand().fill();
+        this.add(closeButton).width(50).height(50).expand().fill().right();
     }
 }

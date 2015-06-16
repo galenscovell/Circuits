@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -33,6 +34,8 @@ public class ResourceManager {
     public static NinePatchDrawable barDown;
     public static TextButton.TextButtonStyle mainButtonStyle;
     public static TextButton.TextButtonStyle levelButtonStyle;
+
+    public static Sprite selectionPointer;
 
     public static void create() {
         assetManager = new AssetManager();
@@ -74,6 +77,8 @@ public class ResourceManager {
 
         mainButtonStyle = new TextButton.TextButtonStyle(barUp, barDown, barUp, assetManager.get("mediumFont.ttf", BitmapFont.class));
         levelButtonStyle = new TextButton.TextButtonStyle(barUp, barDown, barUp, assetManager.get("smallFont.ttf", BitmapFont.class));
+
+        selectionPointer = new Sprite(new TextureRegion(atlas.findRegion("pointer")));
     }
 
     public static void dispose() {

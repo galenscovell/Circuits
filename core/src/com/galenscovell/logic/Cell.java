@@ -23,6 +23,7 @@ public class Cell extends Actor {
     private int[] connections;
     private boolean selected, active, node, bridge;
     private Sprite texture;
+    private Sprite baseSprite, singleSprite, doubleSprite;
 
     public Cell(int x, int y, Grid grid) {
         this.grid = grid;
@@ -77,12 +78,22 @@ public class Cell extends Actor {
         } else {
             connections[dir]++;
             totalConnections++;
+            if (dir == 1) {
+                if (connections[dir] == 1) {
+                    this.texture = singleSprite;
+                } else {
+                    this.texture = doubleSprite;
+                }
+            }
         }
     }
 
     public void resetConnection(int dir) {
         totalConnections -= connections[dir];
         connections[dir] = 0;
+        if (dir == 1) {
+            this.texture = baseSprite;
+        }
     }
 
     public boolean directionFull(int dir) {
@@ -96,7 +107,10 @@ public class Cell extends Actor {
     public void setNode(int maxConnections) {
         this.node = true;
         this.maxConnections = maxConnections;
-        this.texture = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections)));
+        this.baseSprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections + "_empty")));
+        this.singleSprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections + "_single")));
+        this.doubleSprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("node" + maxConnections + "_double")));
+        this.texture = baseSprite;
     }
 
     public boolean isNode() {
@@ -139,15 +153,10 @@ public class Cell extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (selected) {
-            batch.setColor(0.2f, 0.6f, 0.2f, 1);
-            batch.draw(texture, getX(), getY(), 48, 48);
-            batch.setColor(1, 1, 1, 1);
+            batch.draw(ResourceManager.selectionPointer, getX(), getY() + 48, 48, 48);
         } else if (isNode() && isFull()) {
-            batch.setColor(0.4f, 0.4f, 0.4f, 1);
-            batch.draw(texture, getX(), getY(), 48, 48);
-            batch.setColor(1, 1, 1, 1);
-        } else {
-            batch.draw(texture, getX(), getY(), 48, 48);
+            // TODO: Some sort of notice for player that node is full
         }
+        batch.draw(texture, getX(), getY(), 48, 48);
     }
 }

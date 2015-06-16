@@ -84,7 +84,6 @@ public class GameStage extends Stage {
 
         // Bottom bar
         this.bottomTable = new Table();
-        bottomTable.setBackground(ResourceManager.barUp);
         mainTable.add(bottomTable).height(80).expand().fillX().center().bottom();
 
         this.addActor(mainTable);
@@ -100,17 +99,19 @@ public class GameStage extends Stage {
         tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
-    private void bottomTableOperation(int type) {
+    public void bottomTableOperation(int type) {
         if (bottomTable.hasChildren()) {
             bottomTable.clear();
         }
-        Table table;
-        if (type == 0) {
-            table = new ReturnTable(this);
-        } else {
-            table = new SolutionTable(this);
+        if (type != 2) {
+            Table table;
+            if (type == 0) {
+                table = new ReturnTable(this);
+            } else {
+                table = new SolutionTable(this);
+            }
+            bottomTable.add(table).expand().fill().padBottom(2);
         }
-        bottomTable.add(table).expand().fill().padBottom(2);
     }
 
     private Table buildBoard(int rows, int columns) {
