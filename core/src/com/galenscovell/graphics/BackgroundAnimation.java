@@ -16,39 +16,35 @@ import java.util.Random;
  */
 
 public class BackgroundAnimation {
-    private Random random;
     private Sprite sprite;
-    private int x, y, direction, thickness;
+    private int x, y, direction;
 
     public BackgroundAnimation(int type) {
-        this.random = new Random();
+        Random random = new Random();
         int choice = random.nextInt(2);
         if (type == 0) {
             if (choice == 0) {
                 this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_v_r")));
                 this.x = -100;
-                this.y = 0;
                 this.direction = 0;
             } else {
                 this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_v_l")));
                 this.x = 500;
-                this.y = 0;
                 this.direction = 1;
             }
+            this.y = 0;
         } else if (type == 1) {
             if (choice == 0) {
                 this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_h_u")));
-                this.x = 0;
                 this.y = 820;
                 this.direction = 2;
             } else {
                 this.sprite = new Sprite(new TextureRegion(ResourceManager.atlas.findRegion("stripe_h_d")));
-                this.x = 0;
                 this.y = -100;
                 this.direction = 3;
             }
+            this.x = 0;
         }
-        this.thickness = random.nextInt(100) + 20;
     }
 
     public boolean isOffScreen() {
@@ -63,7 +59,16 @@ public class BackgroundAnimation {
         }
     }
 
-    public void animate(int direction) {
+    public void draw(SpriteBatch batch) {
+        if (direction == 0 || direction == 1) {
+            batch.draw(sprite, x, y, 100, 800);
+        } else {
+            batch.draw(sprite, x, y, 480, 100);
+        }
+        animate(direction);
+    }
+
+    private void animate(int direction) {
         if (direction == 0) {
             x += 2;
         } else if (direction == 1) {
@@ -73,14 +78,5 @@ public class BackgroundAnimation {
         } else {
             y += 2;
         }
-    }
-
-    public void draw(SpriteBatch batch) {
-        if (direction == 0 || direction == 1) {
-            batch.draw(sprite, x, y, thickness, 800);
-        } else {
-            batch.draw(sprite, x, y, 480, thickness);
-        }
-        animate(direction);
     }
 }

@@ -1,6 +1,7 @@
 package com.galenscovell.screens;
 
 import com.galenscovell.graphics.BackgroundAnimation;
+import com.galenscovell.screens.components.DifficultyTable;
 import com.galenscovell.tween.ActorAccessor;
 import com.galenscovell.util.ResourceManager;
 import com.galenscovell.twine.TwineMain;
@@ -132,16 +133,14 @@ public class LevelSelectScreen extends AbstractScreen {
         DifficultyTable difficultyTable = new DifficultyTable(root, difficulty);
         container.add(difficultyTable);
         for (Actor actor : difficultyTable.getActors()) {
-            Tween.from(actor, ActorAccessor.POS_Y, 0.8f)
-                    .target(0)
-                    .delay(0.5f)
+            Tween.set(actor, ActorAccessor.ALPHA).target(0).start(tweenManager);
+            tweenManager.update(Gdx.graphics.getDeltaTime());
+            Tween.to(actor, ActorAccessor.ALPHA, 0.3f)
+                    .target(1.0f)
+                    .delay(0.8f)
                     .start(tweenManager);
             tweenManager.update(Gdx.graphics.getDeltaTime());
         }
-        Tween.from(difficultyTable, ActorAccessor.ALPHA, 1.5f)
-                .target(0)
-                .start(tweenManager);
-        tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
     @Override

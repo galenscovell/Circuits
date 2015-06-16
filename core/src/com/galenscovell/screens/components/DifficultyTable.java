@@ -1,4 +1,4 @@
-package com.galenscovell.screens;
+package com.galenscovell.screens.components;
 
 import com.galenscovell.twine.TwineMain;
 import com.galenscovell.util.ResourceManager;
@@ -26,7 +26,7 @@ public class DifficultyTable extends Table {
         create(difficulty);
     }
 
-    public void create(int difficulty) {
+    private void create(int difficulty) {
         this.actors = new ArrayList<Actor>();
         String type;
         if (difficulty == 0) {

@@ -2,6 +2,8 @@ package com.galenscovell.screens;
 
 import com.galenscovell.logic.Cell;
 import com.galenscovell.logic.Grid;
+import com.galenscovell.screens.components.ReturnTable;
+import com.galenscovell.screens.components.SolutionTable;
 import com.galenscovell.tween.ActorAccessor;
 import com.galenscovell.util.ResourceManager;
 
@@ -30,15 +32,22 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class GameStage extends Stage {
     private GameScreen root;
     private Grid grid;
+    private TweenManager tweenManager;
+    private Table bottomTable;
 
     public GameStage(GameScreen root, SpriteBatch spriteBatch, TweenManager tweenManager, int difficulty, int levelNumber) {
         super(new FitViewport(480, 800), spriteBatch);
         this.root = root;
-        create(tweenManager);
+        this.tweenManager = tweenManager;
+        create();
         grid.loadLevel(difficulty, levelNumber);
     }
 
-    private void create(TweenManager tweenManager) {
+    public void returnOperation() {
+        root.returnToLevelSelect();
+    }
+
+    private void create() {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
@@ -49,17 +58,17 @@ public class GameStage extends Stage {
         Table menuButton = createButton(topTable, "barsHorizontal");
         menuButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                root.returnToLevelSelect();
+                bottomTableOperation(0);
             }
         });
-        topTable.add(menuButton).width(50).height(50).expand().fill().left();
+        topTable.add(menuButton).width(50).height(50).expand().fill().left().padBottom(2);
         Table checkButton = createButton(topTable, "checkmark");
         checkButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                checkSolution();
+                bottomTableOperation(1);
             }
         });
-        topTable.add(checkButton).width(50).height(50).expand().fill().right();
+        topTable.add(checkButton).width(50).height(50).expand().fill().right().padBottom(2);
         mainTable.add(topTable).height(80).expand().fillX().top().padBottom(64);
         mainTable.row();
 
@@ -74,7 +83,7 @@ public class GameStage extends Stage {
 
 
         // Bottom bar
-        Table bottomTable = new Table();
+        this.bottomTable = new Table();
         bottomTable.setBackground(ResourceManager.barUp);
         mainTable.add(bottomTable).height(80).expand().fillX().center().bottom();
 
@@ -89,6 +98,19 @@ public class GameStage extends Stage {
                 .ease(Bounce.OUT)
                 .start(tweenManager);
         tweenManager.update(Gdx.graphics.getDeltaTime());
+    }
+
+    private void bottomTableOperation(int type) {
+        if (bottomTable.hasChildren()) {
+            bottomTable.clear();
+        }
+        Table table;
+        if (type == 0) {
+            table = new ReturnTable(this);
+        } else {
+            table = new SolutionTable(this);
+        }
+        bottomTable.add(table).expand().fill().padBottom(2);
     }
 
     private Table buildBoard(int rows, int columns) {
@@ -108,23 +130,15 @@ public class GameStage extends Stage {
         return gridTable;
     }
 
-    private Table createButton(Table table, String name) {
+    public Table createButton(Table table, String name) {
         Table button = new Table();
         button.setTouchable(Touchable.enabled);
         button.setBackground(new TextureRegionDrawable(ResourceManager.atlas.findRegion(name)));
         return button;
     }
 
-    private void checkSolution() {
-        if (grid.isComplete()) {
-            updateScreen(1);
-        } else {
-            updateScreen(0);
-        }
-    }
-
-    private void updateScreen(int type) {
-
+    public boolean checkSolution() {
+        return grid.isComplete();
     }
 }
 

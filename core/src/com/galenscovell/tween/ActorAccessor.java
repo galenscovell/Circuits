@@ -12,15 +12,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 
 public class ActorAccessor implements TweenAccessor<Actor> {
-    public static final int POS_X = 0;
+    public static final int ROTATE = 0;
     public static final int POS_Y = 1;
     public static final int ALPHA = 2;
 
     @Override
     public int getValues(Actor target, int tweenType, float[] returnValues) {
         switch(tweenType) {
-            case POS_X:
-                returnValues[0] = target.getX();
+            case ROTATE:
+                returnValues[0] = target.getRotation();
                 return 1;
             case POS_Y:
                 returnValues[0] = target.getY();
@@ -37,8 +37,8 @@ public class ActorAccessor implements TweenAccessor<Actor> {
     @Override
     public void setValues(Actor target, int tweenType, float[] newValues) {
         switch(tweenType) {
-            case POS_X:
-                target.setX(newValues[0]);
+            case ROTATE:
+                target.setRotation(newValues[0]);
                 break;
             case POS_Y:
                 target.setY(newValues[0]);

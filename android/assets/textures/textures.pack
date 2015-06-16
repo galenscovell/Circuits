@@ -59,7 +59,7 @@ checkmark
   orig: 100, 100
   offset: 0, 0
   index: -1
-exitLeft
+cross
   rotate: false
   xy: 109, 593
   size: 100, 100
