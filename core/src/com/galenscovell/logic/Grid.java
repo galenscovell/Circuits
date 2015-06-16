@@ -154,4 +154,16 @@ public class Grid {
     private boolean isOutOfBounds(int x, int y) {
         return (x < 0 || y < 0 || x >= 9 || y >= 9);
     }
+
+    public boolean isComplete() {
+        // Check that all nodes are full
+        for (Cell[] row : cells) {
+            for (Cell cell : row) {
+                if (!cell.isFull()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

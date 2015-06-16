@@ -46,17 +46,37 @@ public class GameStage extends Stage {
         // Top bar
         Table topTable = new Table();
         topTable.setBackground(ResourceManager.barUp);
-        createImageButton(topTable, "barsHorizontal");
-        mainTable.add(topTable).height(64).expand().fillX().top();
+        Table menuButton = createButton(topTable, "barsHorizontal");
+        menuButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                root.returnToLevelSelect();
+            }
+        });
+        topTable.add(menuButton).width(50).height(50).expand().fill().left();
+        Table checkButton = createButton(topTable, "checkmark");
+        checkButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                checkSolution();
+            }
+        });
+        topTable.add(checkButton).width(50).height(50).expand().fill().right();
+        mainTable.add(topTable).height(80).expand().fillX().top().padBottom(64);
         mainTable.row();
+
 
         // Main game board
         Table gameBoard = new Table();
 
         Table gridTable = buildBoard(9, 9);
         gameBoard.add(gridTable).center();
-        mainTable.add(gameBoard).height(480).expand().fillX().center().padBottom(128);
+        mainTable.add(gameBoard).height(480).expand().fillX().center().padBottom(96);
         mainTable.row();
+
+
+        // Bottom bar
+        Table bottomTable = new Table();
+        bottomTable.setBackground(ResourceManager.barUp);
+        mainTable.add(bottomTable).height(80).expand().fillX().center().bottom();
 
         this.addActor(mainTable);
 
@@ -88,16 +108,23 @@ public class GameStage extends Stage {
         return gridTable;
     }
 
-    private void createImageButton(Table table, String name) {
+    private Table createButton(Table table, String name) {
         Table button = new Table();
         button.setTouchable(Touchable.enabled);
         button.setBackground(new TextureRegionDrawable(ResourceManager.atlas.findRegion(name)));
-        button.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                root.returnToLevelSelect();
-            }
-        });
-        table.add(button).width(48).height(48).expand().fill().left().padBottom(6);
+        return button;
+    }
+
+    private void checkSolution() {
+        if (grid.isComplete()) {
+            updateScreen(1);
+        } else {
+            updateScreen(0);
+        }
+    }
+
+    private void updateScreen(int type) {
+
     }
 }
 

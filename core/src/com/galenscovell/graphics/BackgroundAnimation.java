@@ -16,11 +16,12 @@ import java.util.Random;
  */
 
 public class BackgroundAnimation {
+    private Random random;
     private Sprite sprite;
-    private int x, y, direction;
+    private int x, y, direction, thickness;
 
     public BackgroundAnimation(int type) {
-        Random random = new Random();
+        this.random = new Random();
         int choice = random.nextInt(2);
         if (type == 0) {
             if (choice == 0) {
@@ -47,6 +48,7 @@ public class BackgroundAnimation {
                 this.direction = 3;
             }
         }
+        this.thickness = random.nextInt(100) + 20;
     }
 
     public boolean isOffScreen() {
@@ -75,9 +77,9 @@ public class BackgroundAnimation {
 
     public void draw(SpriteBatch batch) {
         if (direction == 0 || direction == 1) {
-            batch.draw(sprite, x, y, 100, 800);
+            batch.draw(sprite, x, y, thickness, 800);
         } else {
-            batch.draw(sprite, x, y, 480, 100);
+            batch.draw(sprite, x, y, 480, thickness);
         }
         animate(direction);
     }
