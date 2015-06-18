@@ -1,7 +1,7 @@
 package com.galenscovell.screens;
 
 import com.galenscovell.graphics.BackgroundAnimation;
-import com.galenscovell.tween.ActorAccessor;
+import com.galenscovell.graphics.tween.ActorAccessor;
 import com.galenscovell.twine.TwineMain;
 import com.galenscovell.util.ResourceManager;
 

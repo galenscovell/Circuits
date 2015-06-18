@@ -2,7 +2,7 @@ package com.galenscovell.screens;
 
 import com.galenscovell.graphics.BackgroundAnimation;
 import com.galenscovell.screens.components.DifficultyTable;
-import com.galenscovell.tween.ActorAccessor;
+import com.galenscovell.graphics.tween.ActorAccessor;
 import com.galenscovell.util.ResourceManager;
 import com.galenscovell.twine.TwineMain;
 
@@ -35,6 +35,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class LevelSelectScreen extends AbstractScreen {
     private TweenManager tweenManager;
     private BackgroundAnimation bgAnim1, bgAnim2;
+    private TextButton easyButton, mediumButton, hardButton;
 
     public LevelSelectScreen(TwineMain root) {
         super(root);
@@ -66,21 +67,39 @@ public class LevelSelectScreen extends AbstractScreen {
 
         // Difficulty select buttons
         Table difficultyTable = new Table();
-        TextButton easyButton = new TextButton("Easy", ResourceManager.mainButtonStyle);
+        this.easyButton = new TextButton("Easy", ResourceManager.selectionButtonStyle);
         easyButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                if (mediumButton.isChecked()) {
+                    mediumButton.setChecked(false);
+                }
+                if (hardButton.isChecked()) {
+                    hardButton.setChecked(false);
+                }
                 changeDifficulty(scrollTable, 0);
             }
         });
-        TextButton mediumButton = new TextButton("Medium", ResourceManager.mainButtonStyle);
+        this.mediumButton = new TextButton("Medium", ResourceManager.selectionButtonStyle);
         mediumButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                if (easyButton.isChecked()) {
+                    easyButton.setChecked(false);
+                }
+                if (hardButton.isChecked()) {
+                    hardButton.setChecked(false);
+                }
                 changeDifficulty(scrollTable, 1);
             }
         });
-        TextButton hardButton = new TextButton("Hard", ResourceManager.mainButtonStyle);
+        this.hardButton = new TextButton("Hard", ResourceManager.selectionButtonStyle);
         hardButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                if (mediumButton.isChecked()) {
+                    mediumButton.setChecked(false);
+                }
+                if (easyButton.isChecked()) {
+                    easyButton.setChecked(false);
+                }
                 changeDifficulty(scrollTable, 2);
             }
         });

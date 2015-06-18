@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 
 /**
  * CELL
- * Each cell is an Actor with its own inputlistener, state, sprite and connections.
  * Each cell can be either a 'node' or 'empty' (with possibility to become a bridge).
+ * Depending on designation, different sprites, methods and variables will be used.
  *
  * @author Galen Scovell
  */

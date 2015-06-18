@@ -2,9 +2,7 @@ package com.galenscovell.screens;
 
 import com.galenscovell.logic.Cell;
 import com.galenscovell.logic.Grid;
-import com.galenscovell.screens.components.ReturnTable;
-import com.galenscovell.screens.components.SolutionTable;
-import com.galenscovell.tween.ActorAccessor;
+import com.galenscovell.graphics.tween.ActorAccessor;
 import com.galenscovell.util.ResourceManager;
 
 import aurelienribon.tweenengine.equations.Bounce;
@@ -33,7 +31,6 @@ public class GameStage extends Stage {
     private GameScreen root;
     private Grid grid;
     private TweenManager tweenManager;
-    private Table bottomTable;
 
     public GameStage(GameScreen root, SpriteBatch spriteBatch, TweenManager tweenManager, int difficulty, int levelNumber) {
         super(new FitViewport(480, 800), spriteBatch);
@@ -54,22 +51,14 @@ public class GameStage extends Stage {
 
         // Top bar
         Table topTable = new Table();
-        topTable.setBackground(ResourceManager.barUp);
-        Table menuButton = createButton(topTable, "barsHorizontal");
+        Table menuButton = createButton(topTable, "menuButton");
         menuButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                bottomTableOperation(0);
+
             }
         });
-        topTable.add(menuButton).width(50).height(50).expand().fill().left().padBottom(2);
-        Table checkButton = createButton(topTable, "checkmark");
-        checkButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                bottomTableOperation(1);
-            }
-        });
-        topTable.add(checkButton).width(50).height(50).expand().fill().right().padBottom(2);
-        mainTable.add(topTable).height(80).expand().fillX().top().padBottom(64);
+        topTable.add(menuButton).width(80).height(80).expand().fill().center();
+        mainTable.add(topTable).height(120).expand().fill().top().padBottom(32);
         mainTable.row();
 
 
@@ -78,13 +67,15 @@ public class GameStage extends Stage {
 
         Table gridTable = buildBoard(9, 9);
         gameBoard.add(gridTable).center();
-        mainTable.add(gameBoard).height(480).expand().fillX().center().padBottom(96);
+        mainTable.add(gameBoard).height(480).expand().fill().center().padBottom(32);
         mainTable.row();
 
 
         // Bottom bar
-        this.bottomTable = new Table();
-        mainTable.add(bottomTable).height(80).expand().fillX().center().bottom();
+        Table bottomTable = new Table();
+        Table timeButton = createButton(bottomTable, "menuButton");
+        bottomTable.add(timeButton).width(80).height(80).expand().fill().center();
+        mainTable.add(bottomTable).height(120).expand().fill().top();
 
         this.addActor(mainTable);
 
@@ -99,19 +90,8 @@ public class GameStage extends Stage {
         tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
-    public void bottomTableOperation(int type) {
-        if (bottomTable.hasChildren()) {
-            bottomTable.clear();
-        }
-        if (type != 2) {
-            Table table;
-            if (type == 0) {
-                table = new ReturnTable(this);
-            } else {
-                table = new SolutionTable(this);
-            }
-            bottomTable.add(table).expand().fill().padBottom(2);
-        }
+    public void menuOperation() {
+
     }
 
     private Table buildBoard(int rows, int columns) {

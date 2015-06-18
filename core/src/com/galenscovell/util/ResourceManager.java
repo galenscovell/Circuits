@@ -30,10 +30,13 @@ public class ResourceManager {
     public static Label.LabelStyle titleLabelStyle;
     public static Label.LabelStyle buttonLabelStyle;
     public static Label.LabelStyle detailLabelStyle;
-    public static NinePatchDrawable barUp;
-    public static NinePatchDrawable barDown;
+    public static NinePatchDrawable buttonUp;
+    public static NinePatchDrawable buttonDown;
+    public static NinePatchDrawable buttonSelected;
+    public static NinePatchDrawable buttonUnselected;
     public static TextButton.TextButtonStyle mainButtonStyle;
     public static TextButton.TextButtonStyle levelButtonStyle;
+    public static TextButton.TextButtonStyle selectionButtonStyle;
 
     public static Sprite selectionPointer;
 
@@ -72,13 +75,16 @@ public class ResourceManager {
         buttonLabelStyle = new Label.LabelStyle(assetManager.get("mediumFont.ttf", BitmapFont.class), Color.WHITE);
         titleLabelStyle = new Label.LabelStyle(assetManager.get("largeFont.ttf", BitmapFont.class), Color.WHITE);
 
-        barUp = new NinePatchDrawable(atlas.createPatch("bar"));
-        barDown = new NinePatchDrawable(atlas.createPatch("bardown"));
+        buttonUp = new NinePatchDrawable(atlas.createPatch("buttonup"));
+        buttonDown = new NinePatchDrawable(atlas.createPatch("buttondown"));
+        buttonSelected = new NinePatchDrawable(atlas.createPatch("selectboxchecked"));
+        buttonUnselected = new NinePatchDrawable(atlas.createPatch("selectboxunchecked"));
 
-        mainButtonStyle = new TextButton.TextButtonStyle(barUp, barDown, barUp, assetManager.get("mediumFont.ttf", BitmapFont.class));
-        levelButtonStyle = new TextButton.TextButtonStyle(barUp, barDown, barUp, assetManager.get("smallFont.ttf", BitmapFont.class));
+        mainButtonStyle = new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonUp, assetManager.get("mediumFont.ttf", BitmapFont.class));
+        levelButtonStyle = new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonUp, assetManager.get("smallFont.ttf", BitmapFont.class));
+        selectionButtonStyle = new TextButton.TextButtonStyle(buttonUnselected, buttonUnselected, buttonSelected, assetManager.get("mediumFont.ttf", BitmapFont.class));
 
-        selectionPointer = new Sprite(new TextureRegion(atlas.findRegion("pointer")));
+        selectionPointer = new Sprite(atlas.findRegion("pointer"));
     }
 
     public static void dispose() {

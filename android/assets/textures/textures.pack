@@ -5,325 +5,334 @@ filter: Nearest,Nearest
 repeat: none
 stripe_v_l
   rotate: false
-  xy: 1, 216
+  xy: 1, 1
   size: 1, 800
   orig: 1, 800
   offset: 0, 0
   index: -1
 stripe_v_r
   rotate: false
-  xy: 4, 216
+  xy: 4, 1
   size: 1, 800
   orig: 1, 800
   offset: 0, 0
   index: -1
 stripe_h_d
   rotate: false
-  xy: 7, 1015
+  xy: 7, 800
   size: 480, 1
   orig: 480, 1
   offset: 0, 0
   index: -1
 stripe_h_u
   rotate: false
-  xy: 7, 1012
+  xy: 7, 797
   size: 480, 1
   orig: 480, 1
   offset: 0, 0
   index: -1
-barsHorizontal
-  rotate: false
-  xy: 7, 910
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-checkmark
-  rotate: false
-  xy: 7, 808
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-cross
-  rotate: false
-  xy: 109, 910
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-exitLeft
-  rotate: false
-  xy: 7, 706
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-exitRight
-  rotate: false
-  xy: 109, 808
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
 locked
   rotate: false
-  xy: 211, 910
+  xy: 7, 695
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 medal1
   rotate: false
-  xy: 7, 604
+  xy: 7, 593
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 medal2
   rotate: false
-  xy: 109, 706
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-question
-  rotate: false
-  xy: 211, 808
+  xy: 109, 695
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 unlocked
   rotate: false
-  xy: 313, 910
+  xy: 7, 491
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
+menuButton
+  rotate: false
+  xy: 109, 613
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+returnButton
+  rotate: false
+  xy: 211, 715
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+solveButton
+  rotate: false
+  xy: 7, 409
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+soundOffButton
+  rotate: false
+  xy: 109, 531
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+soundOnButton
+  rotate: false
+  xy: 293, 715
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
 empty
   rotate: false
-  xy: 7, 551
+  xy: 7, 356
   size: 51, 51
   orig: 51, 51
   offset: 0, 0
   index: -1
 bridge_double_h
   rotate: false
-  xy: 109, 656
+  xy: 375, 747
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 bridge_double_v
   rotate: false
-  xy: 211, 758
+  xy: 7, 306
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 bridge_h
   rotate: false
-  xy: 313, 860
+  xy: 425, 747
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 bridge_v
   rotate: false
-  xy: 415, 962
+  xy: 7, 256
   size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+buttondown
+  rotate: false
+  xy: 7, 206
+  size: 48, 48
+  split: 7, 7, 8, 4
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+buttonup
+  rotate: false
+  xy: 7, 156
+  size: 48, 48
+  split: 7, 7, 6, 6
   orig: 48, 48
   offset: 0, 0
   index: -1
 node1_double
   rotate: false
-  xy: 7, 501
+  xy: 7, 106
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node1_empty
   rotate: false
-  xy: 109, 606
+  xy: 7, 56
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node1_single
   rotate: false
-  xy: 159, 656
+  xy: 7, 6
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node2_double
   rotate: false
-  xy: 211, 708
+  xy: 109, 481
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node2_empty
   rotate: false
-  xy: 261, 758
+  xy: 375, 697
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node2_single
   rotate: false
-  xy: 313, 810
+  xy: 425, 697
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node3_double
   rotate: false
-  xy: 363, 860
+  xy: 159, 481
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node3_empty
   rotate: false
-  xy: 415, 912
+  xy: 89, 431
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node3_single
   rotate: false
-  xy: 7, 451
+  xy: 139, 431
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node4_double
   rotate: false
-  xy: 159, 606
+  xy: 60, 359
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node4_empty
   rotate: false
-  xy: 261, 708
+  xy: 110, 381
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node4_single
   rotate: false
-  xy: 363, 810
+  xy: 160, 381
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node5_double
   rotate: false
-  xy: 7, 401
+  xy: 189, 431
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node5_empty
   rotate: false
-  xy: 7, 351
+  xy: 210, 381
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node5_single
   rotate: false
-  xy: 7, 301
+  xy: 110, 331
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node6_double
   rotate: false
-  xy: 7, 251
+  xy: 160, 331
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node6_empty
   rotate: false
-  xy: 60, 554
+  xy: 210, 331
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node6_single
   rotate: false
-  xy: 110, 556
+  xy: 60, 309
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node7_double
   rotate: false
-  xy: 160, 556
+  xy: 57, 259
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node7_empty
   rotate: false
-  xy: 7, 201
+  xy: 57, 209
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node7_single
   rotate: false
-  xy: 1, 151
+  xy: 57, 159
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node8_double
   rotate: false
-  xy: 1, 101
+  xy: 57, 109
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node8_empty
   rotate: false
-  xy: 1, 51
+  xy: 57, 59
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 node8_single
   rotate: false
-  xy: 1, 1
+  xy: 57, 9
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 pointer
   rotate: false
-  xy: 51, 151
+  xy: 110, 281
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-bar
+selectboxchecked
   rotate: false
-  xy: 51, 125
-  size: 24, 24
-  split: 6, 6, 6, 9
-  orig: 24, 24
+  xy: 160, 281
+  size: 48, 48
+  split: 7, 7, 4, 4
+  orig: 48, 48
   offset: 0, 0
   index: -1
-bardown
+selectboxunchecked
   rotate: false
-  xy: 51, 99
-  size: 24, 24
-  split: 6, 6, 9, 6
-  orig: 24, 24
+  xy: 210, 281
+  size: 48, 48
+  split: 7, 7, 4, 4
+  orig: 48, 48
   offset: 0, 0
   index: -1
