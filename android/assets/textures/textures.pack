@@ -145,184 +145,191 @@ buttonup
   orig: 48, 48
   offset: 0, 0
   index: -1
-node1_double
+litBG
   rotate: false
   xy: 7, 106
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node1_empty
+node1_double
   rotate: false
   xy: 7, 56
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node1_single
+node1_empty
   rotate: false
   xy: 7, 6
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node2_double
+node1_single
   rotate: false
   xy: 109, 481
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node2_empty
+node2_double
   rotate: false
   xy: 375, 697
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node2_single
+node2_empty
   rotate: false
   xy: 425, 697
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node3_double
+node2_single
   rotate: false
   xy: 159, 481
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node3_empty
+node3_double
   rotate: false
   xy: 89, 431
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node3_single
+node3_empty
   rotate: false
   xy: 139, 431
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node4_double
+node3_single
   rotate: false
   xy: 60, 359
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node4_empty
+node4_double
   rotate: false
   xy: 110, 381
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node4_single
+node4_empty
   rotate: false
   xy: 160, 381
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node5_double
+node4_single
   rotate: false
   xy: 189, 431
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node5_empty
+node5_double
   rotate: false
   xy: 210, 381
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node5_single
+node5_empty
   rotate: false
   xy: 110, 331
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node6_double
+node5_single
   rotate: false
   xy: 160, 331
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node6_empty
+node6_double
   rotate: false
   xy: 210, 331
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node6_single
+node6_empty
   rotate: false
   xy: 60, 309
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node7_double
+node6_single
   rotate: false
   xy: 57, 259
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node7_empty
+node7_double
   rotate: false
   xy: 57, 209
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node7_single
+node7_empty
   rotate: false
   xy: 57, 159
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node8_double
+node7_single
   rotate: false
   xy: 57, 109
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node8_empty
+node8_double
   rotate: false
   xy: 57, 59
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-node8_single
+node8_empty
   rotate: false
   xy: 57, 9
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-pointer
+node8_single
   rotate: false
   xy: 110, 281
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-selectboxchecked
+pointer
   rotate: false
   xy: 160, 281
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+selectboxchecked
+  rotate: false
+  xy: 210, 281
   size: 48, 48
   split: 7, 7, 4, 4
   orig: 48, 48
@@ -330,7 +337,7 @@ selectboxchecked
   index: -1
 selectboxunchecked
   rotate: false
-  xy: 210, 281
+  xy: 107, 231
   size: 48, 48
   split: 7, 7, 4, 4
   orig: 48, 48

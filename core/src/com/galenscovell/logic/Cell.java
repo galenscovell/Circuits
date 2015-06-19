@@ -167,7 +167,7 @@ public class Cell extends Actor {
         if (selected) {
             batch.draw(ResourceManager.selectionPointer, getX(), getY() + 48, 48, 48);
         } else if (isNode() && isFull()) {
-            // TODO: Some sort of notice for player that node is full
+            batch.draw(ResourceManager.litbg, getX() - 2, getY() - 2, 52, 52);
         }
         batch.draw(currentSprite, getX(), getY(), 48, 48);
     }

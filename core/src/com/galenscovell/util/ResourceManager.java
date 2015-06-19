@@ -4,17 +4,13 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * RESOURCE MANAGER
@@ -39,6 +35,7 @@ public class ResourceManager {
     public static TextButton.TextButtonStyle selectionButtonStyle;
 
     public static Sprite selectionPointer;
+    public static Sprite litbg;
 
     public static void create() {
         assetManager = new AssetManager();
@@ -85,6 +82,7 @@ public class ResourceManager {
         selectionButtonStyle = new TextButton.TextButtonStyle(buttonUnselected, buttonUnselected, buttonSelected, assetManager.get("mediumFont.ttf", BitmapFont.class));
 
         selectionPointer = new Sprite(atlas.findRegion("pointer"));
+        litbg = new Sprite(atlas.findRegion("litBG"));
     }
 
     public static void dispose() {
