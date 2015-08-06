@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 /**
  * CELL
  * Each cell can be either a 'node' or 'empty' (with possibility to become a bridge).
- * Depending on designation, different sprites, methods and variables will be used.
+ * Depending on designation different sprites, methods and fields will be used.
  *
  * @author Galen Scovell
  */
@@ -23,13 +23,13 @@ public class Cell extends Actor {
     private Sprite[] sprites;
     private boolean node, bridge;
 
-    // Node specific
+    // 'Node' specific
     private int maxConnections, totalConnections;
     private int[] connections;
     private boolean selected, active;
     private float touchedX, touchedY;
 
-    // Bridge specific
+    // 'Bridge' specific
     private int createdDirection;
 
 
@@ -83,6 +83,10 @@ public class Cell extends Actor {
 
     public int getGridY() {
         return gridY;
+    }
+
+    public boolean hasConnection(int dir) {
+        return connections[dir] != 0;
     }
 
     public void addConnection(int dir) {
@@ -164,11 +168,16 @@ public class Cell extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (selected) {
-            batch.draw(ResourceManager.selectionPointer, getX(), getY() + 48, 48, 48);
-        } else if (isNode() && isFull()) {
+        if (isNode() && isFull()) {
             batch.draw(ResourceManager.litbg, getX() - 2, getY() - 2, 52, 52);
         }
-        batch.draw(currentSprite, getX(), getY(), 48, 48);
+        if (selected) {
+            batch.draw(ResourceManager.selectionPointer, getX(), getY() + 48, 48, 48);
+            batch.setColor(0.0f, 1, 0.4f, 1);
+            batch.draw(currentSprite, getX(), getY(), 48, 48);
+            batch.setColor(1, 1, 1, 1);
+        } else {
+            batch.draw(currentSprite, getX(), getY(), 48, 48);
+        }
     }
 }

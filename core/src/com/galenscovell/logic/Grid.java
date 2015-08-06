@@ -65,10 +65,13 @@ public class Grid {
     }
 
     private void checkMove(int dir, Cell cell) {
-        // If node or move direction full, remove bridges in that direction
+        // If node or move direction full, ignore move
         if (cell.isFull() || cell.directionFull(dir)) {
-            removeBridge(cell.getGridX(), cell.getGridY(), dir);
-            cell.resetConnection(dir);
+            // If node has bridge in move direction, remove bridge
+            if (cell.hasConnection(dir)) {
+                cell.resetConnection(dir);
+                removeBridge(cell.getGridX(), cell.getGridY(), dir);
+            }
             return;
         }
         // Otherwise cast ray in direction, analyzing each hit cell along the way

@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
 
 /**
  * GAME SCREEN
- * Screen containing main game stage.
+ * Screen containing primary game stage.
  *
  * @author Galen Scovell
  */

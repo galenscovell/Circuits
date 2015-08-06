@@ -1,5 +1,6 @@
 package com.galenscovell.screens;
 
+import aurelienribon.tweenengine.TweenEquation;
 import com.galenscovell.logic.Cell;
 import com.galenscovell.logic.Grid;
 import com.galenscovell.graphics.tween.ActorAccessor;
@@ -51,20 +52,13 @@ public class GameStage extends Stage {
 
         // Top bar
         Table topTable = new Table();
-        Table menuButton = createButton(topTable, "menuButton");
-        menuButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-
-            }
-        });
-        topTable.add(menuButton).width(80).height(80).expand().fill().center();
-        mainTable.add(topTable).height(120).expand().fill().top().padBottom(32);
+        createMenu(topTable);
+        mainTable.add(topTable).width(380).height(120).expand().fill().top().padBottom(32);
         mainTable.row();
 
 
         // Main game board
         Table gameBoard = new Table();
-
         Table gridTable = buildBoard(9, 9);
         gameBoard.add(gridTable).center();
         mainTable.add(gameBoard).height(480).expand().fill().center().padBottom(32);
@@ -73,8 +67,8 @@ public class GameStage extends Stage {
 
         // Bottom bar
         Table bottomTable = new Table();
-        Table timeButton = createButton(bottomTable, "menuButton");
-        bottomTable.add(timeButton).width(80).height(80).expand().fill().center();
+        Table solveButton = createButton(bottomTable, "solveButton");
+        bottomTable.add(solveButton).width(80).height(80).expand().fill().center();
         mainTable.add(bottomTable).height(120).expand().fill().top();
 
         this.addActor(mainTable);
@@ -90,8 +84,47 @@ public class GameStage extends Stage {
         tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
-    public void menuOperation() {
+    public void createMenu(Table container) {
+        Table soundButton = createButton(container, "soundOnButton");
+        soundButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
 
+            }
+        });
+        Table menuButton = createButton(container, "menuButton");
+        menuButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+        Table returnButton = createButton(container, "returnButton");
+        returnButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                root.returnToLevelSelect();
+            }
+        });
+        container.add(soundButton).width(80).height(80).expand().fill();
+        container.add(menuButton).width(80).height(80).expand().fill();
+        container.add(returnButton).width(80).height(80).expand().fill();
+
+        Tween.set(soundButton, ActorAccessor.POS_X).target(0).start(tweenManager);
+        Tween.set(returnButton, ActorAccessor.POS_X).target(300).start(tweenManager);
+        tweenManager.update(Gdx.graphics.getDeltaTime());
+        Tween.from(soundButton, ActorAccessor.ALPHA, 0.4f)
+                .target(0)
+                .start(tweenManager);
+        Tween.from(returnButton, ActorAccessor.ALPHA, 0.4f)
+                .target(0)
+                .start(tweenManager);
+        Tween.from(soundButton, ActorAccessor.POS_X, 1.2f)
+                .target(150)
+                .ease(Bounce.OUT)
+                .start(tweenManager);
+        Tween.from(returnButton, ActorAccessor.POS_X, 1.2f)
+                .target(150)
+                .ease(Bounce.OUT)
+                .start(tweenManager);
+        tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
     private Table buildBoard(int rows, int columns) {

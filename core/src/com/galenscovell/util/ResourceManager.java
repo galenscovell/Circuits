@@ -50,18 +50,18 @@ public class ResourceManager {
         assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter smallParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        smallParams.fontFileName = "fonts/kenpixel_blocks.ttf";
-        smallParams.fontParameters.size = 12;
+        smallParams.fontFileName = "fonts/spincycle_ot.otf";
+        smallParams.fontParameters.size = 16;
         assetManager.load("smallFont.ttf", BitmapFont.class, smallParams);
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter mediumParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        mediumParams.fontFileName = "fonts/kenpixel_blocks.ttf";
-        mediumParams.fontParameters.size = 24;
+        mediumParams.fontFileName = "fonts/spincycle_ot.otf";
+        mediumParams.fontParameters.size = 32;
         assetManager.load("mediumFont.ttf", BitmapFont.class, mediumParams);
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter largeParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        largeParams.fontFileName = "fonts/kenpixel_blocks.ttf";
-        largeParams.fontParameters.size = 64;
+        largeParams.fontFileName = "fonts/spincycle_ot.otf";
+        largeParams.fontParameters.size = 72;
         assetManager.load("largeFont.ttf", BitmapFont.class, largeParams);
     }
 

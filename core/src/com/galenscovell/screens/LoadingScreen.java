@@ -6,36 +6,48 @@ import com.galenscovell.twine.TwineMain;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
  * LOADING SCREEN
- * Displays splash image asynchronously while game resources are loading.
+ * Displays loading animation asynchronously while game resources are loading.
  *
  * @author Galen Scovell
  */
 
 public class LoadingScreen extends AbstractScreen {
+    private ProgressBar loadingBar;
 
     public LoadingScreen(TwineMain root) {
         super(root);
     }
 
-    protected void create() {
-        this.stage = new Stage(new FitViewport(480, 800), root.spriteBatch);
+    @Override
+    public void create() {
+        this.stage = new Stage(new FitViewport(240, 400), root.spriteBatch);
+        Table loadingMain = new Table();
+        loadingMain.setFillParent(true);
 
-        Table splashMain = new Table();
-        splashMain.setFillParent(true);
+        Table labelTable = new Table();
+        Image loadingImage = new Image(new Texture(Gdx.files.internal("textures/loading.png")));
+        labelTable.add(loadingImage).width(200).height(50).expand().fill().bottom();
+        loadingMain.add(labelTable).expand().fill();
+        loadingMain.row();
 
-        Image splashImage = new Image(ResourceManager.assetManager.get("textures/splash.png", Texture.class));
-        splashMain.add(splashImage).expand().center();
+        Table barTable = new Table();
+        this.loadingBar = createBar();
+        barTable.add(loadingBar).width(200).height(60).expand().fill().top();
+        loadingMain.add(barTable).expand().fill();
 
-        stage.addActor(splashMain);
+        stage.addActor(loadingMain);
     }
 
     @Override
@@ -46,18 +58,28 @@ public class LoadingScreen extends AbstractScreen {
         stage.draw();
         if (ResourceManager.assetManager.update()) {
             ResourceManager.done();
-            stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.5f), toMainMenuScreen));
+            stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.4f), toMainMenuScreen));
         }
+        loadingBar.setValue(ResourceManager.assetManager.getLoadedAssets());
     }
 
     @Override
     public void show() {
         ResourceManager.create();
-        ResourceManager.assetManager.load("textures/splash.png", Texture.class);
-        ResourceManager.assetManager.finishLoading();
         create();
         stage.getRoot().getColor().a = 0;
-        stage.getRoot().addAction(Actions.sequence(Actions.fadeIn(0.1f)));
+        stage.getRoot().addAction(Actions.sequence(Actions.fadeIn(0.2f)));
+    }
+
+    private ProgressBar createBar() {
+        TextureRegionDrawable fill = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/loadingFill.png"))));
+        TextureRegionDrawable empty = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/loadingEmpty.png"))));
+        ProgressBar.ProgressBarStyle barStyle = new ProgressBar.ProgressBarStyle(empty, fill);
+        ProgressBar bar = new ProgressBar(0, 6, 1, false, barStyle);
+        barStyle.knobBefore = fill;
+        bar.setValue(0);
+        bar.setAnimateDuration(0.1f);
+        return bar;
     }
 
     Action toMainMenuScreen = new Action() {
@@ -67,3 +89,4 @@ public class LoadingScreen extends AbstractScreen {
         }
     };
 }
+
