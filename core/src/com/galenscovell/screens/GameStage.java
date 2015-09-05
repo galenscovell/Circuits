@@ -60,6 +60,7 @@ public class GameStage extends Stage {
         // Main game board
         Table gameBoard = new Table();
         Table gridTable = buildBoard(9, 9);
+        gridTable.background(ResourceManager.buttonUp);
         gameBoard.add(gridTable).center();
         mainTable.add(gameBoard).height(480).expand().fill().center().padBottom(32);
         mainTable.row();
