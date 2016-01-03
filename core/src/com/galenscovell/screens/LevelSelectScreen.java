@@ -4,7 +4,7 @@ import com.galenscovell.graphics.BackgroundAnimation;
 import com.galenscovell.screens.components.DifficultyTable;
 import com.galenscovell.graphics.tween.ActorAccessor;
 import com.galenscovell.util.ResourceManager;
-import com.galenscovell.twine.TwineMain;
+import com.galenscovell.circuits.CircuitsMain;
 
 import aurelienribon.tweenengine.equations.Bounce;
 import aurelienribon.tweenengine.Tween;
@@ -37,7 +37,7 @@ public class LevelSelectScreen extends AbstractScreen {
     private BackgroundAnimation bgAnim1, bgAnim2;
     private TextButton easyButton, mediumButton, hardButton;
 
-    public LevelSelectScreen(TwineMain root) {
+    public LevelSelectScreen(CircuitsMain root) {
         super(root);
     }
 

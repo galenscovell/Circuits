@@ -1,6 +1,6 @@
 package com.galenscovell.screens.components;
 
-import com.galenscovell.twine.TwineMain;
+import com.galenscovell.circuits.CircuitsMain;
 import com.galenscovell.util.ResourceManager;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -18,10 +18,10 @@ import java.util.List;
  */
 
 public class DifficultyTable extends Table {
-    private TwineMain root;
+    private CircuitsMain root;
     private List<Actor> actors;
 
-    public DifficultyTable(TwineMain root, int difficulty) {
+    public DifficultyTable(CircuitsMain root, int difficulty) {
         this.root = root;
         create(difficulty);
     }

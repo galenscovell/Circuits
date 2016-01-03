@@ -1,6 +1,6 @@
-package com.galenscovell.twine.desktop;
+package com.galenscovell.circuits.desktop;
 
-import com.galenscovell.twine.TwineMain;
+import com.galenscovell.circuits.CircuitsMain;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -19,6 +19,6 @@ public class DesktopLauncher {
         config.height = 800;
         config.title = "Twine";
         config.resizable = true;
-        new LwjglApplication(new TwineMain(), config);
+        new LwjglApplication(new CircuitsMain(), config);
     }
 }

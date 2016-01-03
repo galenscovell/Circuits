@@ -1,4 +1,4 @@
-package com.galenscovell.twine;
+package com.galenscovell.circuits;
 
 import com.galenscovell.screens.GameScreen;
 import com.galenscovell.screens.LevelSelectScreen;
@@ -11,13 +11,13 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * TWINE MAIN
+ * CIRCUITS MAIN
  * Primary entry into application. Contains all screens and only spriteBatch.
  *
  * @author Galen Scovell
  */
 
-public class TwineMain extends Game {
+public class CircuitsMain extends Game {
     public SpriteBatch spriteBatch;
     public LoadingScreen loadingScreen;
     public MainMenuScreen mainMenuScreen;

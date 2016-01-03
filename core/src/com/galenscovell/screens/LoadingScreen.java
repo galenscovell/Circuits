@@ -1,7 +1,7 @@
 package com.galenscovell.screens;
 
 import com.galenscovell.util.ResourceManager;
-import com.galenscovell.twine.TwineMain;
+import com.galenscovell.circuits.CircuitsMain;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,7 +26,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class LoadingScreen extends AbstractScreen {
     private ProgressBar loadingBar;
 
-    public LoadingScreen(TwineMain root) {
+    public LoadingScreen(CircuitsMain root) {
         super(root);
     }
 

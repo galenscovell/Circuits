@@ -2,7 +2,7 @@ package com.galenscovell.screens;
 
 import com.galenscovell.graphics.BackgroundAnimation;
 import com.galenscovell.graphics.tween.ActorAccessor;
-import com.galenscovell.twine.TwineMain;
+import com.galenscovell.circuits.CircuitsMain;
 import com.galenscovell.util.ResourceManager;
 
 import aurelienribon.tweenengine.equations.Bounce;
@@ -34,7 +34,7 @@ public class MainMenuScreen extends AbstractScreen {
     private TweenManager tweenManager;
     private BackgroundAnimation bgAnim1, bgAnim2;
 
-    public MainMenuScreen(TwineMain root) {
+    public MainMenuScreen(CircuitsMain root) {
         super(root);
     }
 

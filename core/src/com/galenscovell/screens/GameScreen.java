@@ -1,13 +1,12 @@
 package com.galenscovell.screens;
 
 import com.galenscovell.graphics.BackgroundAnimation;
-import com.galenscovell.twine.TwineMain;
+import com.galenscovell.circuits.CircuitsMain;
 
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.profiling.GLProfiler;
 
 /**
  * GAME SCREEN
@@ -20,7 +19,7 @@ public class GameScreen extends AbstractScreen {
     private TweenManager tweenManager;
     private BackgroundAnimation bgAnim1, bgAnim2;
 
-    public GameScreen(TwineMain root, int difficulty, int levelNumber) {
+    public GameScreen(CircuitsMain root, int difficulty, int levelNumber) {
         super(root);
         create(difficulty, levelNumber);
 //        GLProfiler.enable();

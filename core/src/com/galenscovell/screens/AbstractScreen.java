@@ -1,6 +1,6 @@
 package com.galenscovell.screens;
 
-import com.galenscovell.twine.TwineMain;
+import com.galenscovell.circuits.CircuitsMain;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -15,10 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 
 public class AbstractScreen implements Screen {
-    protected TwineMain root;
+    protected CircuitsMain root;
     protected Stage stage;
 
-    public AbstractScreen(TwineMain root) {
+    public AbstractScreen(CircuitsMain root) {
         this.root = root;
     }
 

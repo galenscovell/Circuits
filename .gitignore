@@ -9,14 +9,15 @@
 *.gradle
 *.pro
 *.properties
-*.txt
 
 
 # Ignored directory names
 
 android/libs
+android/build
 build
 generating
 gradle
 gradlew
+prepatch
 working
