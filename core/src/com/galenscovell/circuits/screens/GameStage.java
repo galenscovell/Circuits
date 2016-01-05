@@ -1,10 +1,9 @@
-package com.galenscovell.screens;
+package com.galenscovell.circuits.screens;
 
-import aurelienribon.tweenengine.TweenEquation;
-import com.galenscovell.logic.Cell;
-import com.galenscovell.logic.Grid;
-import com.galenscovell.graphics.tween.ActorAccessor;
-import com.galenscovell.util.ResourceManager;
+import com.galenscovell.circuits.logic.Cell;
+import com.galenscovell.circuits.logic.Grid;
+import com.galenscovell.circuits.graphics.tween.ActorAccessor;
+import com.galenscovell.circuits.util.ResourceManager;
 
 import aurelienribon.tweenengine.equations.Bounce;
 import aurelienribon.tweenengine.Tween;

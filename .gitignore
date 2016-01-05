@@ -13,6 +13,8 @@
 
 # Ignored directory names
 
+android
+libs
 android/libs
 android/build
 build

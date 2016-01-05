@@ -1,6 +1,6 @@
-package com.galenscovell.screens;
+package com.galenscovell.circuits.screens;
 
-import com.galenscovell.graphics.BackgroundAnimation;
+import com.galenscovell.circuits.graphics.BackgroundAnimation;
 import com.galenscovell.circuits.CircuitsMain;
 
 import aurelienribon.tweenengine.TweenManager;

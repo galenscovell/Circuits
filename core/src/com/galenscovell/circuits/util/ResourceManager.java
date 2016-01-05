@@ -1,4 +1,4 @@
-package com.galenscovell.util;
+package com.galenscovell.circuits.util;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;

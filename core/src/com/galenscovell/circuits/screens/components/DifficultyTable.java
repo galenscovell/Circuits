@@ -1,7 +1,7 @@
-package com.galenscovell.screens.components;
+package com.galenscovell.circuits.screens.components;
 
 import com.galenscovell.circuits.CircuitsMain;
-import com.galenscovell.util.ResourceManager;
+import com.galenscovell.circuits.util.ResourceManager;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;

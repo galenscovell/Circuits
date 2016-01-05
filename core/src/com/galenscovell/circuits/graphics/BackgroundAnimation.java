@@ -1,6 +1,6 @@
-package com.galenscovell.graphics;
+package com.galenscovell.circuits.graphics;
 
-import com.galenscovell.util.ResourceManager;
+import com.galenscovell.circuits.util.ResourceManager;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

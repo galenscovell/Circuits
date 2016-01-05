@@ -1,6 +1,6 @@
-package com.galenscovell.logic;
+package com.galenscovell.circuits.logic;
 
-import com.galenscovell.util.LevelParser;
+import com.galenscovell.circuits.util.LevelParser;
 
 import java.util.ArrayList;
 import java.util.List;

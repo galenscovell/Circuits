@@ -1,4 +1,4 @@
-package com.galenscovell.graphics.tween;
+package com.galenscovell.circuits.graphics.tween;
 
 import aurelienribon.tweenengine.TweenAccessor;
 

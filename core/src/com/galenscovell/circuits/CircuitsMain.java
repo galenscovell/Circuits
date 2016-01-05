@@ -1,11 +1,11 @@
 package com.galenscovell.circuits;
 
-import com.galenscovell.screens.GameScreen;
-import com.galenscovell.screens.LevelSelectScreen;
-import com.galenscovell.screens.LoadingScreen;
-import com.galenscovell.screens.MainMenuScreen;
-import com.galenscovell.screens.OptionsScreen;
-import com.galenscovell.util.ResourceManager;
+import com.galenscovell.circuits.screens.GameScreen;
+import com.galenscovell.circuits.screens.LevelSelectScreen;
+import com.galenscovell.circuits.screens.LoadingScreen;
+import com.galenscovell.circuits.screens.MainMenuScreen;
+import com.galenscovell.circuits.screens.OptionsScreen;
+import com.galenscovell.circuits.util.ResourceManager;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

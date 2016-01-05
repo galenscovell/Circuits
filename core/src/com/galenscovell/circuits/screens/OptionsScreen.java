@@ -1,9 +1,9 @@
-package com.galenscovell.screens;
+package com.galenscovell.circuits.screens;
 
-import com.galenscovell.graphics.BackgroundAnimation;
-import com.galenscovell.graphics.tween.ActorAccessor;
+import com.galenscovell.circuits.graphics.BackgroundAnimation;
+import com.galenscovell.circuits.graphics.tween.ActorAccessor;
 import com.galenscovell.circuits.CircuitsMain;
-import com.galenscovell.util.ResourceManager;
+import com.galenscovell.circuits.util.ResourceManager;
 
 import aurelienribon.tweenengine.equations.Bounce;
 import aurelienribon.tweenengine.Tween;
@@ -24,17 +24,17 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
- * MAINMENU SCREEN
- * Displays primary game menu to player.
+ * OPTIONS SCREEN
+ * Provides in-game settings to player: sfx, music and graphics.
  *
  * @author Galen Scovell
  */
 
-public class MainMenuScreen extends AbstractScreen {
+public class OptionsScreen extends AbstractScreen {
     private TweenManager tweenManager;
     private BackgroundAnimation bgAnim1, bgAnim2;
 
-    public MainMenuScreen(CircuitsMain root) {
+    public OptionsScreen(CircuitsMain root) {
         super(root);
     }
 
@@ -49,7 +49,7 @@ public class MainMenuScreen extends AbstractScreen {
 
         // Top table
         Table titleTable = new Table();
-        Label titleLabel = new Label("Twine", ResourceManager.titleLabelStyle);
+        Label titleLabel = new Label("Settings", ResourceManager.titleLabelStyle);
         titleLabel.setAlignment(Align.center);
         titleTable.add(titleLabel).expand().fill().center();
         mainTable.add(titleTable).width(400).height(160).expand().fill().center();
@@ -58,29 +58,29 @@ public class MainMenuScreen extends AbstractScreen {
 
         // Center table
         Table buttonTable = new Table();
-        TextButton newGameButton = new TextButton("New Game", ResourceManager.mainButtonStyle);
-        newGameButton.addListener(new ClickListener() {
+        TextButton soundButton = new TextButton("SFX", ResourceManager.mainButtonStyle);
+        soundButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.25f), toLevelSelectScreen));
+                // TODO: Implement sfx
             }
         });
-        TextButton optionsButton = new TextButton("Options", ResourceManager.mainButtonStyle);
-        optionsButton.addListener(new ClickListener() {
+        TextButton musicButton = new TextButton("Music", ResourceManager.mainButtonStyle);
+        musicButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.25f), toOptionsScreen));
+                // TODO: Implement music
             }
         });
-        TextButton quitButton = new TextButton("Exit Twine", ResourceManager.mainButtonStyle);
-        quitButton.addListener(new ClickListener() {
+        TextButton returnButton = new TextButton("Return", ResourceManager.mainButtonStyle);
+        returnButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.25f), quitGame));
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.25f), toMainMenuScreen));
             }
         });
-        buttonTable.add(newGameButton).width(260).height(80).expand().fill().center();
+        buttonTable.add(soundButton).width(260).height(80).expand().fill().center();
         buttonTable.row();
-        buttonTable.add(optionsButton).width(260).height(80).expand().fill().center();
+        buttonTable.add(musicButton).width(260).height(80).expand().fill().center();
         buttonTable.row();
-        buttonTable.add(quitButton).width(260).height(80).expand().fill().center();
+        buttonTable.add(returnButton).width(260).height(80).expand().fill().center();
 
         mainTable.add(buttonTable).width(300).height(400).expand().fill().center();
         mainTable.row();
@@ -93,22 +93,20 @@ public class MainMenuScreen extends AbstractScreen {
         endTable.add(detailLabel).expand().fill().bottom().center();
         mainTable.add(endTable).width(300).height(60).expand().fill().center();
 
-
         stage.addActor(mainTable);
 
         this.tweenManager = new TweenManager();
         Tween.registerAccessor(Actor.class, new ActorAccessor());
-
         Tween.from(titleLabel, ActorAccessor.ALPHA, 0.5f)
-                .target(0)
-                .start(tweenManager);
+            .target(0)
+            .start(tweenManager);
         Tween.from(titleLabel, ActorAccessor.POS_Y, 0.75f)
-                .target(100)
-                .ease(Bounce.OUT)
-                .start(tweenManager);
+            .target(100)
+            .ease(Bounce.OUT)
+            .start(tweenManager);
         Tween.from(buttonTable, ActorAccessor.ALPHA, 0.5f)
-                .target(0)
-                .start(tweenManager);
+            .target(0)
+            .start(tweenManager);
         tweenManager.update(Gdx.graphics.getDeltaTime());
 
         this.bgAnim1 = new BackgroundAnimation(0);
@@ -135,23 +133,9 @@ public class MainMenuScreen extends AbstractScreen {
         tweenManager.update(delta);
     }
 
-    Action toLevelSelectScreen = new Action() {
+    Action toMainMenuScreen = new Action() {
         public boolean act(float delta) {
-            root.setScreen(root.levelSelectScreen);
-            return true;
-        }
-    };
-
-    Action toOptionsScreen = new Action() {
-        public boolean act(float delta) {
-            root.setScreen(root.optionsScreen);
-            return true;
-        }
-    };
-
-    Action quitGame = new Action() {
-        public boolean act(float delta) {
-            Gdx.app.exit();
+            root.setScreen(root.mainMenuScreen);
             return true;
         }
     };

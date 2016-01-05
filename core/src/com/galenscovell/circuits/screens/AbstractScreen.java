@@ -1,4 +1,4 @@
-package com.galenscovell.screens;
+package com.galenscovell.circuits.screens;
 
 import com.galenscovell.circuits.CircuitsMain;
 
